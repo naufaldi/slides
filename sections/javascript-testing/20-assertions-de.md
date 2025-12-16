@@ -2,7 +2,7 @@
 
 ## Assertions
 
-Assertions können auf zwei Arten geschrieben werden:
+Assertions können auf verschiedene Arten geschrieben werden:
 
 **assert**:
 
@@ -10,10 +10,16 @@ Assertions können auf zwei Arten geschrieben werden:
 assert.equal(a, b);
 ```
 
-**expect** (manchmals als _behavior-driven_ bezeichnet):
+**expect** (Beispiel aus _Jest_):
 
 ```js
 expect(a).toEqual(b);
+```
+
+**should** (Beispiel aus _Cypress_):
+
+```js
+inputField.should('have.value', '');
 ```
 
 ## Assertions in node.js
@@ -48,8 +54,20 @@ expect(a).toBeInstanceOf(Number);
 expect(() => JSON.parse('')).toThrow();
 ```
 
-## Assertions mit Jest
+## Assertions
 
-`.toEqual`: für Primitive sowie für Objekte geeignet
+"deep equality": vergleicht _Inhalte_ con Objekten / Arrays
 
-`.toBe`: verhält sich wie `===` - für Primitive geeignet (sowie zum Identitätsvergleich)
+```js
+assert.deepEqual([1, 2], [1, 2]);
+expect([1, 2]).to.eql([1, 2]);
+expect([1, 2]).toEqual([1, 2]);
+```
+
+"strict equality": verhält sich wie `===` - kann zum Vergleichen von Primitiven verwendet werden (oder zum Identitätsvergleich bei Objekten)
+
+```js
+assert.equal('abc', 'abc');
+expect('abc').to.equal('abc');
+expect('abc').toBe('abc');
+```

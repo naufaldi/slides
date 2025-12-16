@@ -11,10 +11,12 @@ The presentations are standalone HTML files that can be downloaded and viewed of
 To build from the sources:
 
 - clone this repository
-- run `npm install`
+- run `npm ci` (to install dependencies from _package-lock.json_)
 - run `npm run build`
 
-The build process looks for files in the _entrypoints_ folder which in turn include files from the _sections_ folder.
+This process starts with _sections/index.json_ and recursively includes materials
+
+It creates output in the _docs_ folder
 
 ## Technical details, writing your own
 

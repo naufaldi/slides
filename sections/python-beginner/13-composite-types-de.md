@@ -31,6 +31,7 @@ person["first_name"] = "Jane"
 
 Erstelle und verändere Dictionaries, die verschiedene Objekte repräsentieren - z.B.:
 
+- ein Datum (z.B. 23. Oktober 1971)
 - einen Kalendereintrag
 - eine Person
 - ein Produkt in einem Online-Shop
@@ -108,10 +109,10 @@ len(users)
 
 Erstelle und ändere Daten, die aus _dicts_ und _lists_ bestehen und die verschiedene Objekte repräsentieren, z.B.:
 
+- Todos
 - Kalendereinträge
 - Produkte in einem Online-Shop / Einkaufskorb
 - Transaktionen auf einem Bankkonto
-- Daten zu einem Staat (inklusive Nachbarstaaten)
 
 ## tuple
 

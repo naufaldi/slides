@@ -2072,6 +2072,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>virtual DOM and the <em>key</em> prop</li>
 <li>lazy loading of components</li>
 </ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Three steps to update a component</h1>
+</section><section class="slide"><h2>Three steps to update a component</h2>
+<ol>
+<li>build a virtual DOM representation of the new rendering ("render phase")</li>
+<li>create a diff between the new and old virtual DOM ("reconciliation phase")</li>
+<li>apply any changes in the virtual DOM to the real DOM ("commit phase")</li>
+</ol>
+</section><section class="slide"><h2>Three steps to update a component</h2>
+<p>speeding up the three steps:</p>
+<ul>
+<li>memoizing costly computations (<em>useMemo</em>) - may speed up step 1</li>
+<li>preventing unneeded component rerenderings - skips all steps if nothing changed</li>
+<li>using the <em>key</em> property - helps with finding the minimal diff</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>React devtools and performance</h1>
 </section><section class="slide"><h2>React devtools and performance</h2>
 <p>react devtools functionality:</p>
@@ -2098,7 +2112,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Details of a commit can be seen by clicking on it</p>
 </section><section class="slide"><h2>React devtools and performance</h2>
 <p>Numbers in a commit detail:</p>
-<pre><code class="hljs language-angelscript">TodoApp (<span class="hljs-number">3</span>ms of <span class="hljs-number">109</span>ms)
+<pre><code class="hljs language-apache"><span class="hljs-attribute">TodoApp</span> (<span class="hljs-number">3</span>ms of <span class="hljs-number">109</span>ms)
 </code></pre>
 <p>this means:</p>
 <ul>
@@ -2132,25 +2146,29 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
 <span class="hljs-keyword">const</span> numActiveTodos = useMemo(
   <span class="hljs-comment">// function to recompute value</span>
-  <span class="hljs-function"><span class="hljs-params">()</span> =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed).length,
+  <span class="hljs-function">() =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> !todo.completed).length,
   <span class="hljs-comment">// array of dependencies</span>
   [todos]
 );
 </code></pre>
 <p>the computation is only rerun if a dependency listed in the array changes</p>
-</section></section><section class="slides-section"><section class="slide"><h1>Memoization of component renderings</h1>
-</section><section class="slide"><h2>Preventing unneeded component rerenderings</h2>
+</section></section><section class="slides-section"><section class="slide"><h1>Skipping unneeded rerenders</h1>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p>Note:</p>
+<p>If the rendering of a component is the same as before, re-rendering <em>will generally already be fast</em> as React will only recreate the virtual DOM (and will not touch the real DOM)</p>
+<p>Often, no further optimization is necessary</p>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>Generally a component only needs to be rerendered when its props or state actually change</p>
-</section><section class="slide"><h2>Preventing unneeded component rerenderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>what React already does for us:</p>
 <p>hooks (state, reducer, context) will <em>not</em> trigger a re-rendering if their value has not changed</p>
 <p>what we can add:</p>
 <p>if a parent component rerenders, but the child's props haven't changed, don't rerender the child component (memoization)</p>
-</section><section class="slide"><h2>Preventing unneeded component rerenderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>demo: component only rerenders if its state changes</p>
 <pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Coin</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [coin, setCoin] = useState(<span class="hljs-string">'heads'</span>);
-  <span class="hljs-keyword">const</span> throwCoin = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+  <span class="hljs-keyword">const</span> throwCoin = <span class="hljs-function">() =></span> {
     setCoin(<span class="hljs-built_in">Math</span>.random() > <span class="hljs-number">0.5</span> ? <span class="hljs-string">'heads'</span> : <span class="hljs-string">'tails'</span>);
   };
   <span class="hljs-keyword">return</span> (
@@ -2162,14 +2180,14 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   );
 }
 </code></pre>
-</section><section class="slide"><h2>Memoization of component renderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>if only those subcomponents whose props have changed should rerender:</p>
 <ul>
 <li>for function components: use React's <code>memo</code> function</li>
 <li>for class components: inherit from <code>PureComponent</code> instead of <code>Component</code></li>
 </ul>
-</section><section class="slide"><h2>Memoization of component renderings</h2>
-<p>memoized function component:</p>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p>optimized function component:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { memo } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Rating</span>(<span class="hljs-params">props</span>) </span>{
@@ -2178,94 +2196,66 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> memo(Rating);
 </code></pre>
-<p>memoized class component:</p>
+<p>optimized class component:</p>
 <pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { PureComponent } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Rating</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Memoization of component renderings</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
 <p>the <code>Rating</code> component will not be rerendered if its props are the same as before:</p>
 <pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
-<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span>
-</span></code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Memoization and event handlers</h1>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
-<p>if <code>Rating</code> is a memoized component, which of the following will re-render when the parent is re-rendered?</p>
-<pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
-&#x3C;Rating stars={prodRating} onChange={setProdRating} />
-&#x3C;Rating
-  stars={prodRating}
-  onChange={(newRating) => setProdRating(newRating)}
-/>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span></span>
 </code></pre>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p><a href="https://codesandbox.io/s/memo-sierpinski-j5dv9" target="_blank">Demo: Sierpinski carpet with and without memo</a></p>
+</section><section class="slide"><h2>Skipping unneeded rerenders</h2>
+<p>See also:</p>
+<ul>
+<li><a href="https://reactjs.org/docs/optimizing-performance.html#avoid-reconciliation" target="_blank">reactjs.org - Optimizing Performance - Avoid Reconciliation</a></li>
+<li><a href="https://kentcdodds.com/blog/fix-the-slow-render-before-you-fix-the-re-render" target="_blank">Kent C. Dodds - Fix the slow render before you fix the re-render</a></li>
+</ul>
+</section></section><section class="slides-section"><section class="slide"><h1>Skipping rerenders and event handlers</h1>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
+<p>if <code>Rating</code> is a "memoized" component, which of the following will re-render when the parent is re-rendered?</p>
+<pre><code class="hljs language-jsx">&#x3C;Rating stars={prodRating} />
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span> <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">{setProdRating}</span> /></span></span>
+<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Rating</span>
+  <span class="hljs-attr">stars</span>=<span class="hljs-string">{prodRating}</span>
+  <span class="hljs-attr">onChange</span>=<span class="hljs-string">{(newRating)</span> =></span> setProdRating(newRating)}
+/></span>
+</code></pre>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <pre><code class="hljs language-jsx">&#x3C;Rating
   stars={prodRating}
-  onChange={(newRating) => setProdRating(newRating)}
+  onChange={<span class="hljs-function">(<span class="hljs-params">newRating</span>) =></span> setProdRating(newRating)}
 />
 </code></pre>
 <p>the change handler would be recreated and passed down as a different object on every rendering of the parent component</p>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <p>solutions:</p>
 <ul>
+<li>memoize the event handlers</li>
 <li>pass down a <code>dispatch</code> function</li>
 <li>define the event handlers to be passed down in a class component</li>
-<li>memoize the event handlers</li>
 </ul>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
+</section><section class="slide"><h2>Skipping rerenders and event handlers</h2>
 <p>memoizing event handlers:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
+<pre><code class="hljs language-jsx"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">TodoApp</span>(<span class="hljs-params"></span>) </span>{
   <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> todosWithEventHandlers = useMemo(
-    <span class="hljs-function"><span class="hljs-params">()</span> =></span>
-      todos.map(<span class="hljs-function">(<span class="hljs-params">todo</span>) =></span> ({
-        ...todo,
-        <span class="hljs-attr">onToggle</span>: <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-          <span class="hljs-comment">// ...</span>
-        },
-      })),
-    [todos]
-  );
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">ul</span>></span>
-      {todosWithEventHandlers.map((todo) => (
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">li</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{todo.onToggle}</span>></span>{todo.title}<span class="hljs-tag">&#x3C;/<span class="hljs-name">li</span>></span>
-      ))}
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">ul</span>></span></span>
-  );
-};
-</code></pre>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
-<p>memoization of a single event handler:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> handleAddTodo = useMemo(
-    <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
-      setTodos([
-        ...todos,
-        { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-      ]);
+
+  <span class="hljs-keyword">const</span> deleteTodoA = useMemo(
+    <span class="hljs-function">() =></span> <span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
+      setTodos(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
     },
-    [todos]
+    []
   );
-};
-</code></pre>
-</section><section class="slide"><h2>Memoization and event handlers</h2>
-<p>shorter memoization of a single event handler via <code>useCallback</code>:</p>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">const</span> TodoApp = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> [todos, setTodos] = useState([]);
-  <span class="hljs-keyword">const</span> handleAddTodo = useCallback(
-    <span class="hljs-function">(<span class="hljs-params">newTitle</span>) =></span> {
-      setTodos([
-        ...todos,
-        { <span class="hljs-attr">title</span>: newTitle, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
-      ]);
-    },
-    [todos]
-  );
-};
+
+  <span class="hljs-keyword">const</span> deleteTodoB = useCallback(<span class="hljs-function">(<span class="hljs-params">id</span>) =></span> {
+    setTodos(<span class="hljs-function">(<span class="hljs-params">todos</span>) =></span> todos.filter(<span class="hljs-function">(<span class="hljs-params">t</span>) =></span> t.id !== id));
+  }, []);
+}
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Virtual DOM</h1>
 </section><section class="slide"><h2>Virtual DOM</h2>
@@ -2275,7 +2265,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Usually React is very efficient at figuring out what has changed - but it needs help when elements are repeated in an array</p>
 <p>Rule of thumb: Any time we use <code>.map</code> in our JSX templates the inner elements should have a unique key property to help React</p>
 </section><section class="slide"><h2>Virtual DOM</h2>
-<p>see also: <a href="https://reactjs.org/docs/reconciliation.html">https://reactjs.org/docs/reconciliation.html</a></p>
+<p>see also: <a href="https://reactjs.org/docs/reconciliation.html" target="_blank">https://reactjs.org/docs/reconciliation.html</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Lazy-loading components</h1>
 </section><section class="slide"><h2>Lazy-loading components</h2>
 <p>to reduce bundle size of React apps: only import components when they are needed</p>
@@ -2293,27 +2283,26 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>Suspense</code> component</li>
 </ul>
 </section><section class="slide"><h2>Lazy-loading components</h2>
-<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> React, { Suspense, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<p>with react router:</p>
+<pre><code class="hljs language-jsx"><span class="hljs-keyword">import</span> { Suspense, lazy } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> { Route } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
 
-<span class="hljs-keyword">const</span> Home = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/Home'</span>));
-<span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
+<span class="hljs-keyword">const</span> Home = lazy(<span class="hljs-function">() =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/Home'</span>));
+<span class="hljs-keyword">const</span> About = lazy(<span class="hljs-function">() =></span> <span class="hljs-keyword">import</span>(<span class="hljs-string">'./routes/About'</span>));
 
-<span class="hljs-keyword">const</span> App = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
-  <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>}>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">Switch</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">About</span> /></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span>></span>
-        <span class="hljs-tag">&#x3C;<span class="hljs-name">Home</span> /></span>
-      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Route</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Switch</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">Suspense</span>></span></span>
-);
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">App</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Suspense</span> <span class="hljs-attr">fallback</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">div</span>></span>Loading...<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>}>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Routes</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">Home</span> /></span>} />
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">Route</span> <span class="hljs-attr">path</span>=<span class="hljs-string">"/about"</span> <span class="hljs-attr">element</span>=<span class="hljs-string">{</span>&#x3C;<span class="hljs-attr">About</span> /></span>} />
+      <span class="hljs-tag">&#x3C;/<span class="hljs-name">Routes</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">Suspense</span>></span></span>
+  );
+}
 </code></pre>
 <small>
-  source: <a href="https://reactjs.org/docs/code-splitting.html#route-based-code-splitting">
+  source: <a href="https://reactjs.org/docs/code-splitting.html#route-based-code-splitting" target="_blank">
     Route-based code splitting on reactjs.org
   </a>
 </small></section></section></div>

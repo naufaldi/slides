@@ -2085,21 +2085,21 @@ Dave    | correcthorsebattery
 </code></pre>
 </section><section class="slide"><h2>Logins, passwords and hashes</h2>
 <p>data with hashed passwords:</p>
-<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | password hash
---------+---------------------------------</span>
-Alice   | e10adc3949ba59abbe56e057f20f883e
-Bob     | e10adc3949ba59abbe56e057f20f883e
-Charlie | e99a18c428cb38d5f260853678922e03
-Dave    | 3c077829151f03a4101bf36510d551b1
+<pre><code class="hljs language-apache"><span class="hljs-attribute">name</span>    | password hash
+--------+---------------------------------
+<span class="hljs-attribute">Alice</span>   | e<span class="hljs-number">10</span>adc<span class="hljs-number">3949</span>ba<span class="hljs-number">59</span>abbe<span class="hljs-number">56</span>e<span class="hljs-number">057</span>f<span class="hljs-number">20</span>f<span class="hljs-number">883</span>e
+<span class="hljs-attribute">Bob</span>     | e<span class="hljs-number">10</span>adc<span class="hljs-number">3949</span>ba<span class="hljs-number">59</span>abbe<span class="hljs-number">56</span>e<span class="hljs-number">057</span>f<span class="hljs-number">20</span>f<span class="hljs-number">883</span>e
+<span class="hljs-attribute">Charlie</span> | e<span class="hljs-number">99</span>a<span class="hljs-number">18</span>c<span class="hljs-number">428</span>cb<span class="hljs-number">38</span>d<span class="hljs-number">5</span>f<span class="hljs-number">260853678922</span>e<span class="hljs-number">03</span>
+<span class="hljs-attribute">Dave</span>    | <span class="hljs-number">3</span>c<span class="hljs-number">077829151</span>f<span class="hljs-number">03</span>a<span class="hljs-number">4101</span>bf<span class="hljs-number">36510</span>d<span class="hljs-number">551</span>b<span class="hljs-number">1</span>
 </code></pre>
 </section><section class="slide"><h2>Logins, passwords and hashes</h2>
 <p>data with hashed and salted passwords:</p>
-<pre><code class="hljs language-asciidoc"><span class="hljs-section">name    | salt     | hash
---------+----------+---------------------------------</span>
-Alice   | BzrYZGvv | c17dff0de6bbdfd0c8e7c2f35f2f74b0
-Bob     | w6hxMeFz | 107b7047ae12bd19ca64f34b49fa1c98
-Charlie | uOqA9bpX | c087747abdda0dc67ae9f31871692453
-Dave    | nf7ExQnd | cd6bc62d87ad35d6ea4cbe83e89536f7
+<pre><code class="hljs language-apache"><span class="hljs-attribute">name</span>    | salt     | hash
+--------+----------+---------------------------------
+<span class="hljs-attribute">Alice</span>   | BzrYZGvv | c<span class="hljs-number">17</span>dff<span class="hljs-number">0</span>de<span class="hljs-number">6</span>bbdfd<span class="hljs-number">0</span>c<span class="hljs-number">8</span>e<span class="hljs-number">7</span>c<span class="hljs-number">2</span>f<span class="hljs-number">35</span>f<span class="hljs-number">2</span>f<span class="hljs-number">74</span>b<span class="hljs-number">0</span>
+<span class="hljs-attribute">Bob</span>     | w<span class="hljs-number">6</span>hxMeFz | <span class="hljs-number">107</span>b<span class="hljs-number">7047</span>ae<span class="hljs-number">12</span>bd<span class="hljs-number">19</span>ca<span class="hljs-number">64</span>f<span class="hljs-number">34</span>b<span class="hljs-number">49</span>fa<span class="hljs-number">1</span>c<span class="hljs-number">98</span>
+<span class="hljs-attribute">Charlie</span> | uOqA<span class="hljs-number">9</span>bpX | c<span class="hljs-number">087747</span>abdda<span class="hljs-number">0</span>dc<span class="hljs-number">67</span>ae<span class="hljs-number">9</span>f<span class="hljs-number">31871692453</span>
+<span class="hljs-attribute">Dave</span>    | nf<span class="hljs-number">7</span>ExQnd | cd<span class="hljs-number">6</span>bc<span class="hljs-number">62</span>d<span class="hljs-number">87</span>ad<span class="hljs-number">35</span>d<span class="hljs-number">6</span>ea<span class="hljs-number">4</span>cbe<span class="hljs-number">83</span>e<span class="hljs-number">89536</span>f<span class="hljs-number">7</span>
 </code></pre>
 <p>For Alice, the salt ("BzrYZGvv") and the hash of "123456-BzrYZGvv" are stored</p>
 </section><section class="slide"><h2>Algorithms</h2>
@@ -2134,11 +2134,13 @@ Dave    | nf7ExQnd | cd6bc62d87ad35d6ea4cbe83e89536f7
 <li>account creation requested: username <code>alice</code>, password <code>123456</code></li>
 <li>salted password string with random suffix: <code>123456-BzrYZGvv</code></li>
 <li>hashed version of the string: <code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code></li>
-<li>new database record with three fields:<ul>
+<li>new database record with three fields:
+<ul>
 <li><code>alice</code></li>
 <li><code>BzrYZGvv</code></li>
 <li><code>c17dff0de6bbdfd0c8e7c2f35f2f74b0</code></li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Example process</h2>
 <p>based on MD5 (not secure):</p>
@@ -2155,14 +2157,18 @@ Dave    | nf7ExQnd | cd6bc62d87ad35d6ea4cbe83e89536f7
 </section><section class="slide"><h2>Logins, passwords and hashes with node.js</h2>
 <p>node packages for hashing algorithms:</p>
 <ul>
-<li>via Argon2:<ul>
+<li>via Argon2:
+<ul>
 <li><code>argon2</code> (fast native implementation)</li>
 <li><code>argon2-wasm-pro</code> (compiled to WebAssembly)</li>
-</ul></li>
-<li>via scrypt:<ul>
+</ul>
+</li>
+<li>via scrypt:
+<ul>
 <li><code>scrypt</code> (fast native implementation)</li>
 <li><code>scrypt-js</code> (pure JavaScript)</li>
-</ul></li>
+</ul>
+</li>
 </ul>
 </section><section class="slide"><h2>Example</h2>
 <p>Implementation with <code>argon2-wasm-pro</code> and <code>mingodb</code> (pure JavaScript)</p>
@@ -2177,7 +2183,7 @@ Dave    | nf7ExQnd | cd6bc62d87ad35d6ea4cbe83e89536f7
 
 <span class="hljs-keyword">const</span> app = express();
 app.use(express.json());
-app.get(<span class="hljs-string">'/'</span>, (req, res) => {
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   res.end(
     <span class="hljs-string">'welcome to the auth service\n\n'</span> +
       <span class="hljs-string">'resources:\n/register\n/login'</span>
@@ -2293,7 +2299,7 @@ F+lDCgv2JAe+wYxWkSL4XHgq064lAgMBAAE=
 </code></pre>
 </section><section class="slide"><h2>Generating a key pair</h2>
 <p>generating a pair of RSA keys in the browser:</p>
-<p><a href="https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/">https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/</a></p>
+<p><a href="https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/" target="_blank">https://www.csfieldguide.org.nz/en/interactives/rsa-key-generator/</a></p>
 <ul>
 <li>key size: choose any (larger keys are more secure but slower)</li>
 <li>format scheme: PKCS #1</li>
@@ -2430,7 +2436,7 @@ signature: ...
 </code></pre>
 </section><section class="slide"><h2>JWT-based authentication service</h2>
 <p>updated start page handler:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, (req, res) => {
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   res.end(
     <span class="hljs-string">'welcome to the auth service\n\n'</span> +
       <span class="hljs-string">'resources:\n/register\n/login\n/public-key'</span>
@@ -2438,7 +2444,7 @@ signature: ...
 });
 </code></pre>
 <p>make public key available:</p>
-<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/public-key'</span>, (req, res) => {
+<pre><code class="hljs language-js">app.get(<span class="hljs-string">'/public-key'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   res.end(publicKey);
 });
 </code></pre>
@@ -2486,8 +2492,8 @@ signature: ...
 </section><section class="slide"><h2>Online playground</h2>
 <p>online version:</p>
 <ul>
-<li>code: <a href="https://glitch.com/edit/#!/karuga-auth-service">https://glitch.com/edit/#!/karuga-auth-service</a></li>
-<li>app: <a href="https://karuga-auth-service.glitch.me/">https://karuga-auth-service.glitch.me/</a></li>
+<li>code: <a href="https://glitch.com/edit/#!/karuga-auth-service" target="_blank">https://glitch.com/edit/#!/karuga-auth-service</a></li>
+<li>app: <a href="https://karuga-auth-service.glitch.me/" target="_blank">https://karuga-auth-service.glitch.me/</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Authorization</h1>
 </section><section class="slide"><h2>HTTP bearer token</h2>
@@ -2501,10 +2507,10 @@ signature: ...
   <span class="hljs-attr">secret</span>: publicKey,
 });
 
-app.get(<span class="hljs-string">'/public'</span>, (req, res) => {
+app.get(<span class="hljs-string">'/public'</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   res.json(publicData);
 });
-app.get(<span class="hljs-string">'/private'</span>, restrictToLoggedin, (req, res) => {
+app.get(<span class="hljs-string">'/private'</span>, restrictToLoggedin, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   <span class="hljs-keyword">if</span> (req.user) {
     res.json(privateData);
   } <span class="hljs-keyword">else</span> {
@@ -2534,18 +2540,44 @@ app.use(cors());
   <span class="hljs-attr">secret</span>: publicKey,
 });
 
-app.get(<span class="hljs-string">'/'</span>, (request, response) => {
+app.get(<span class="hljs-string">'/'</span>, <span class="hljs-function">(<span class="hljs-params">request, response</span>) =></span> {
   response.json({ <span class="hljs-attr">page</span>: <span class="hljs-string">'public start page'</span> });
 });
-app.get(<span class="hljs-string">'/items'</span>, restrictToLoggedin, (req, res) => {
+app.get(<span class="hljs-string">'/items'</span>, restrictToLoggedin, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =></span> {
   res.json(secretData);
 });
 </code></pre>
-<p><a href="https://glitch.com/~karuga-secret">glitch project</a></p>
+<p><a href="https://glitch.com/~karuga-secret" target="_blank">glitch project</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Authentication and authorization services</h1>
+</section><section class="slide"><h2>Authentication and authorization services</h2>
+<p>authorization service: provides a token that enables the <em>holder</em> to request some actions on behalf of the token's <em>subject</em></p>
+<p>example authorization token for GitHub:</p>
+<pre><code class="hljs language-livecodeserver">authorization <span class="hljs-keyword">token</span> <span class="hljs-keyword">for</span> GitHub
+<span class="hljs-keyword">the</span> holder <span class="hljs-keyword">of</span> this <span class="hljs-keyword">token</span> may:
+
+- <span class="hljs-built_in">create</span> <span class="hljs-built_in">new</span> repositories <span class="hljs-keyword">for</span> user <span class="hljs-string">"marko-knoebl"</span>
+- <span class="hljs-built_in">delete</span> repositories belonging <span class="hljs-built_in">to</span> user <span class="hljs-string">"marko-knoebl"</span>
+</code></pre>
+</section><section class="slide"><h2>Technologies</h2>
+<ul>
+<li><em>openID</em>: authentication protocol</li>
+<li><em>OAuth</em>: authorization protocol</li>
+<li><em>openID connect</em>: authentication protocol based on <em>OAuth</em></li>
+</ul>
+</section><section class="slide"><h2>OpenID connect</h2>
+<p><a href="https://openid.net/specs/openid-connect-core-1_0.html#StandardClaims" target="_blank">standard claims</a> in openID connect:</p>
+<ul>
+<li><em>sub</em>: Subject - Identifier for the End-User at the Issuer.</li>
+<li><em>name</em>, <em>given_name</em>, <em>family_name</em>, <em>nickname</em>, ...</li>
+<li><em>email</em>, <em>email_verified</em></li>
+<li><em>phone_number</em>, <em>phone_number_verified</em></li>
+<li><em>locale</em></li>
+<li>...</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Resources</h1>
 </section><section class="slide"><h2>Resources</h2>
 <ul>
-<li><a href="https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e">JSON Web Token (JWT) — The right way of implementing, with Node.js, Siddhartha Chowdhury</a></li>
+<li><a href="https://medium.com/@siddharthac6/json-web-token-jwt-the-right-way-of-implementing-with-node-js-65b8915d550e" target="_blank">JSON Web Token (JWT) — The right way of implementing, with Node.js, Siddhartha Chowdhury</a></li>
 </ul></section></section></div>
     </div>
     <script>/*!

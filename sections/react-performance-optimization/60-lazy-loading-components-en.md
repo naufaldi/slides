@@ -22,25 +22,25 @@ React facilities for lazy-loading:
 
 ## Lazy-loading components
 
+with react router:
+
 ```jsx
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Route } from 'react-router-dom';
 
 const Home = lazy(() => import('./routes/Home'));
 const About = lazy(() => import('./routes/About'));
 
-const App = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <Switch>
-      <Route path="/about">
-        <About />
-      </Route>
-      <Route path="/">
-        <Home />
-      </Route>
-    </Switch>
-  </Suspense>
-);
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Suspense>
+  );
+}
 ```
 
 <small>

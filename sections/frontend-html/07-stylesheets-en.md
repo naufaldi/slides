@@ -13,7 +13,7 @@ example:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/picnic"
+  href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
 />
 ```
 
@@ -29,17 +29,20 @@ Resets: stylesheets that unify basic styles across browsers:
 
 CDN: Content Delivery Network - services that host CSS and JS libraries
 
+## Semantic CSS starters
+
+- [water.css](https://watercss.kognise.dev/)
+- [new.css](https://newcss.net)
+- [simple.css](https://simplecss.org/)
+
 ## CSS Libraries
 
 CSS Libraries:
 
-- _Picnic CSS_: simple CSS library, doesn't use JavaScript - [website](https://picnicss.com/), [CDN](https://cdn.jsdelivr.net/npm/picnic)
 - _Bootstrap_: widely used CSS library with many themes - [website](https://getbootstrap.com/), [CDN for CSS](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css), [CDN for JS](https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js)
-- _Semantic UI_ - [website](https://semantic-ui.com), [CDN for CSS](https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css), [CDN for JS](https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js)
-- _Foundation_ - [website](https://get.foundation/sites/docs/), [CDN for CSS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css), [CDN for JS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js)
+- _Tailwind_ - [website](https://tailwindcss.com/), [CDN](https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css)
 
 <!--
-
 https://picnicss.com/ (Einträge in der Navbar sind buttons, kein JS)
 https://milligram.io/ (keine navbar, verwendet class="button")
 http://getskeleton.com/ (keine navbar)

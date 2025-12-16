@@ -12,36 +12,24 @@ Kategorien:
 
 ## Importieren von Modulen
 
-moderne Möglichkeit:
+standard JavaScript Imports:
 
 ```js
-import fs from 'fs';
-
-const currentDirectoryContent = fs.readdirSync('.');
-console.log(currentDirectoryContent);
+import { platform, release } from 'node:os';
 ```
 
-ältere Syntax:
+older, node-specific variant:
 
 ```js
-const fs = require('fs');
-
-const currentDirectoryContent = fs.readdirSync('.');
-console.log(currentDirectoryContent);
+const { platform, release } = require('node:os');
 ```
 
 ## Importieren von Modulen
 
-für Verwendung der moderneren Syntax: in _package.json_  als _"module"_ deklarieren (benötigt node ≥ 13):
+für Verwendung der `import`-Syntax: in _package.json_ als _"module"_ deklarieren:
 
 ```json
-"type": "module"
+{
+  "type": "module"
+}
 ```
-
-## Importieren von Modulen
-
-auf die moderne Syntax kann auch individuell in einzelnen Dateien gewechselt werden: verwende dazu die Datiendung _.mjs_ (benötigt node ≥ 13)
-
-## Importieren von Modulen
-
-Aufgabe: Schreibe ein node-Script, das die alte Syntax benutzt, migriere es dann zur neuen Syntax

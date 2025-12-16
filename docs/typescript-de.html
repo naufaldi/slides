@@ -2061,163 +2061,221 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>TypeScript Grundlagen</h1>
+<!-- closely realated content in presentations typescript and react-->
 </section><section class="slide"><h2>TypeScript</h2>
-<p>= Obermenge von JavaScript mit Erweiterungen:</p>
+<p>TypeScript: Verbreitete Alternative zu <em>JavaScript</em></p>
+<p><em>Statische Typisierung</em> → bessere Autovervollständigung und Fehlererkennung</p>
+</section><section class="slide"><h2>Statische Typisierung</h2>
+<p>Datentypen können <em>explizit</em> vom Entwickler angegeben werden oder von der Entwicklungsumgebung <em>abgeleitet</em> werden (engl. <em>type inference</em>)</p>
+<p>Vortile:</p>
 <ul>
-<li><strong>Statische Typisierung</strong></li>
-<li>Public / Private Properties</li>
-<li>Decorators</li>
+<li>bessere Autovervollständigung</li>
+<li>bessere Fehlererkennung</li>
 </ul>
 </section><section class="slide"><h2>Statische Typisierung</h2>
-<p>Datentypen können angegeben werden und unterstützen insbesondere die Entwicklungsumgebung:</p>
+<p>Beispiel:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [];
+
+names.push(<span class="hljs-string">'Alice'</span>);
+names.push(<span class="hljs-string">'Bob'</span>);
+
+<span class="hljs-built_in">console</span>.log(names[<span class="hljs-number">0</span>].toUpperCase());
+</code></pre>
+</section><section class="slide"><h2>Playground</h2>
+<p>online mit TypeScript experimentieren:</p>
+<p><a href="https://www.typescriptlang.org/play" target="_blank">https://www.typescriptlang.org/play</a></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Build</h1>
+</section><section class="slide"><h2>Build</h2>
+<p>Browser verstehen nur JavaScript, nicht TypeScript</p>
+<p>→ Code muss von TypeScript in JavaScript übersetzt werden, um im Browser zu laufen</p>
+</section><section class="slide"><h2>Build</h2>
+<p>Beispielhafte Projekteinrichtung mit node / npm und <em>vite</em>:</p>
+<pre><code class="hljs language-bash">npm create vite@latest
+</code></pre>
+<p>→ wähle <em>Vanilla</em>, dann <em>TypeScript</em></p>
+</section></section><section class="slides-section"><section class="slide"><h1>Datentypen und Typendeklarationen</h1>
+</section><section class="slide"><h2>Datentypen</h2>
+<p>Datentypen und Deklarationen, die wir verwenden werden:</p>
 <ul>
-<li>Anzeigen von Funktionssignaturen</li>
-<li>Autovervollständigung</li>
-<li>Fehlermeldungen bei nicht passenden Datentypen</li>
+<li>boolean</li>
+<li>number</li>
+<li>string</li>
+<li>array</li>
+<li>object</li>
 </ul>
-</section><section class="slide"><h2>Statische Typisierung</h2>
-<p>Beim build: TypeScript wird in JavaScript übersetzt, alle Typeninformationen gehen dabei verloren</p>
-</section><section class="slide"><h2>Typing von Variablen</h2>
-<p>Variablentypen werden üblicherweise ohne Hilfe erkannt</p>
-<p><em>Explizites</em> Angeben von Variablentypen:</p>
+</section><section class="slide"><h2>Variablentypen</h2>
+<p>Variablentypen können beim Deklarieren von Variablen angegeben werden:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
+</code></pre>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> age: <span class="hljs-built_in">number</span>;
+age = <span class="hljs-number">32</span>;
+age++;
+</code></pre>
+</section><section class="slide"><h2>Type Inference</h2>
+<p>in vielen Fällen kennt TypeScript den Typ automatisch (keine Annotation notwendig):</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> age = <span class="hljs-number">32</span>;
+</code></pre>
+</section><section class="slide"><h2>Primitive Typen</h2>
 <pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> age: <span class="hljs-built_in">number</span> = <span class="hljs-number">32</span>;
-<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Samuel'</span>;
+<span class="hljs-keyword">const</span> name: <span class="hljs-built_in">string</span> = <span class="hljs-string">'Alice'</span>;
 <span class="hljs-keyword">const</span> loggedIn: <span class="hljs-built_in">boolean</span> = <span class="hljs-literal">true</span>;
 </code></pre>
-</section><section class="slide"><h2>Typing von Funktionen</h2>
+</section><section class="slide"><h2>Array-Typen</h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
+names.push(<span class="hljs-string">'Alice'</span>);
+</code></pre>
+<p>alternative Schreibweise:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">string</span>[] = [];
+names.push(<span class="hljs-string">'Alice'</span>);
+</code></pre>
+</section><section class="slide"><h2>Objekttypen</h2>
+<p>Typendeklaration:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> todo: {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+</code></pre>
+<p>Zuweisung:</p>
+<pre><code class="hljs language-ts">todo = { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> };
+</code></pre>
+</section><section class="slide"><h2>Objekttypen</h2>
+<p>optionale Einträge werden mit <code>?</code> gekennzeichnet</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> todo: {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+  date?: <span class="hljs-built_in">string</span>;
+};
+</code></pre>
+</section><section class="slide"><h2>Union Types</h2>
+<p>Variablen, die mehrere Typen annehmen können:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> width: <span class="hljs-built_in">string</span> | <span class="hljs-built_in">number</span> | <span class="hljs-literal">undefined</span>;
+
+width = <span class="hljs-string">'16px'</span>;
+width = <span class="hljs-number">16</span>;
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Type Aliases und Interfaces</h1>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Mit <em>Type Aliases</em> oder <em>Interfaces</em> können wir eine Typendeklaration unter einem Namen speichern</p>
+<p>Type Aliases können etwas einfacher und flexibler sein als Interfaces (<a href="https://stackoverflow.com/questions/37233735" target="_blank">Vergleich auf StackOverflow</a>)</p>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Type Alias für ein Objekt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Todo = {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+};
+</code></pre>
+<p>Interface für ein Objekt:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">interface</span> Todo {
+  <span class="hljs-attr">id</span>: <span class="hljs-built_in">number</span>;
+  title: <span class="hljs-built_in">string</span>;
+  completed: <span class="hljs-built_in">boolean</span>;
+}
+</code></pre>
+</section><section class="slide"><h2>Verwendung von Type Aliases / Interfaces</h2>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> todos: <span class="hljs-built_in">Array</span>&#x3C;Todo> = [
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'foo'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">false</span> },
+  { <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'bar'</span>, <span class="hljs-attr">completed</span>: <span class="hljs-literal">true</span> },
+];
+</code></pre>
+</section><section class="slide"><h2>Type Aliases und Interfaces</h2>
+<p>Type Aliases und Interfaces sollten groß geschrieben werden (z.B. <code>Todo</code>, nicht <code>todo</code>)</p>
+</section></section><section class="slides-section"><section class="slide"><h1>Funktionssignaturen und Funktionstypen</h1>
+</section><section class="slide"><h2>Funktionssignaturen</h2>
 <pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">shorten</span>(<span class="hljs-params">text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span></span>): <span class="hljs-title">string</span> </span>{
   <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, maxLen: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> shorten = (text: <span class="hljs-built_in">string</span>, <span class="hljs-attr">maxLen</span>: <span class="hljs-built_in">number</span>): <span class="hljs-function"><span class="hljs-params">string</span> =></span> {
   <span class="hljs-comment">// ...</span>
 };
 </code></pre>
-</section><section class="slide"><h2>Typing von Funktionen</h2>
+</section><section class="slide"><h2>Funktionssignaturen</h2>
 <p>Funktionen ohne Rückgabewert: <code>void</code></p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> logMessage = (message: <span class="hljs-built_in">string</span>): <span class="hljs-function"><span class="hljs-params">void</span> =></span> {
+<pre><code class="hljs language-ts"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">logMessage</span>(<span class="hljs-params">message: <span class="hljs-built_in">string</span></span>): <span class="hljs-title">void</span> </span>{
   <span class="hljs-built_in">console</span>.log(message);
-};
+}
 </code></pre>
-</section><section class="slide"><h2>Typing von Arrays</h2>
-<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">Array</span>&#x3C;string> = [];
-names.push(<span class="hljs-string">'Anna'</span>);
+</section><section class="slide"><h2>Funktionstypen</h2>
+<p>Speichern einer Funktionssignatur unter einem Type Alias:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// a validator is a function that receives a string</span>
+<span class="hljs-comment">// and returns a boolean</span>
+<span class="hljs-keyword">type</span> Validator = <span class="hljs-function">(<span class="hljs-params">s: <span class="hljs-built_in">string</span></span>) =></span> <span class="hljs-built_in">boolean</span>;
 </code></pre>
-<p>alternative Schreibweise:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">let</span> names: <span class="hljs-built_in">string</span>[] = [];
-names.push(<span class="hljs-string">'Anna'</span>);
-</code></pre>
-</section><section class="slide"><h2>Types &#x26; Interfaces</h2>
-<p><strong>Interfaces</strong>: beschreiben die Struktur eines Objektes / einer Klasse genauer (z.B. <code>Todo</code>, <code>Person</code>)</p>
-<p><strong>Types</strong>: ähnlich wie Interfaces; auch auf Strings, Arrays, ... anwendbar</p>
-</section><section class="slide"><h2>Types &#x26; Interfaces</h2>
-<p>Types bieten im wesentlichen mehr Funktionalität als Interfaces</p>
-<p><a href="https://stackoverflow.com/a/52682220/">https://stackoverflow.com/a/52682220/</a></p>
-</section><section class="slide"><h2>Types</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
-  id: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-};
+<p>Anwenden der Type Alias:</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> validateEmail: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> s.includes(<span class="hljs-string">'@'</span>);
 
-<span class="hljs-keyword">type</span> TodoCollection = <span class="hljs-built_in">Array</span>&#x3C;TodoType>;
-</code></pre>
-</section><section class="slide"><h2>Types bei Objekten</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoType = {
-  id: <span class="hljs-built_in">number</span>;
-  title: <span class="hljs-built_in">string</span>;
-  completed: <span class="hljs-built_in">boolean</span>;
-  <span class="hljs-comment">// optional</span>
-  description?: <span class="hljs-built_in">string</span>;
-  <span class="hljs-comment">// method</span>
-  toggle: <span class="hljs-function">(<span class="hljs-params">id: <span class="hljs-built_in">number</span></span>) =></span> <span class="hljs-built_in">void</span>;
+<span class="hljs-keyword">const</span> validateYear: Validator = <span class="hljs-function">(<span class="hljs-params">s</span>) =></span> {
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(<span class="hljs-string">'^d{4}$'</span>).test(s);
 };
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Generics</h1>
 </section><section class="slide"><h2>Generics</h2>
-<p>Allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
+<p><em>Generic</em>: allgemeine Typendeklaration, zu der bei der Anwendung nähere Informationen spezifiziert werden können (via <code>&#x3C;...></code>)</p>
 </section><section class="slide"><h2>Generics</h2>
 <p>Beispiel: <code>Array</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> a: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">number</span>> = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-<span class="hljs-keyword">const</span> b: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'one'</span>, <span class="hljs-string">'two'</span>, <span class="hljs-string">'three'</span>];
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> names: <span class="hljs-built_in">Array</span>&#x3C;<span class="hljs-built_in">string</span>> = [<span class="hljs-string">'Alice'</span>, <span class="hljs-string">'Bob'</span>, <span class="hljs-string">'Charlie'</span>];
 </code></pre>
-<p>Beispiel: Reacts <code>Component</code> ist ein Generic</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> MyComp <span class="hljs-keyword">extends</span> Component&#x3C;MyProps, MyState> {
-  ...
+</section><section class="slide"><h2>Generics</h2>
+<p>Beispiel: <code>Promise</code> ist ein Generic</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> User = { <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; picture: <span class="hljs-built_in">string</span> };
+
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">User</span>> </span>{
+  <span class="hljs-comment">// ...</span>
 }
 </code></pre>
-</section><section class="slide"><h2>Typendeklarationen für Libraries</h2>
-<p>Manche JavaScript Libraries beinhalten auch Typendeklarationen für TypeScript - z.B. <em>redux</em>.</p>
-<p>Für andere Libraries gibt es meist externe Deklarationen mit dem Präfix <em>@types/</em>, z.B. für <em>react</em> existiert das Paket <em>@types/react</em>.</p>
-</section></section><section class="slides-section"><section class="slide"><h1>TypeScript intermediate</h1>
-</section><section class="slide"><h2>Any</h2>
-<p>Any: lässt alle Typen zu</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput: <span class="hljs-built_in">any</span> = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'myinput'</span>);
-
-<span class="hljs-built_in">console</span>.log(myInput.value);
+</section></section><section class="slides-section"><section class="slide"><h1>Type Assertions</h1>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>Bei Funktionsaufrufen, die auf "externe" Ressourcen zugreifen kann TypeScript alleine oft nicht den Typ bestimmen.</p>
+<p>Beispiele:</p>
+<ul>
+<li><code>fetch()</code></li>
+<li><code>JSON.parse()</code></li>
+<li><code>document.getElementById()</code></li>
+</ul>
+<p>Type Assertions erlauben es uns, ein bestehendes Objekt als einen bestimmten Typ zu behandeln</p>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>dies schlägt fehl:</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMElement or null</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>);
+<span class="hljs-comment">// error: nameInput is possibly null</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// error: nameInput is possibly null</span>
+<span class="hljs-built_in">console</span>.log(nameInput.value);
 </code></pre>
 </section><section class="slide"><h2>Type Assertions</h2>
-<p>ermöglichen das Behandeln eines vorhandenen Objekts als bestimmter Typ</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> myInput = <span class="hljs-built_in">document</span>.getElementById(
-  <span class="hljs-string">'first-name'</span>
+<p>"Assertion", dass ein Wert nicht <em>null</em> oder <em>undefined</em> ist mittels "!":</p>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// TypeScript type: HTMLElement</span>
+<span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'name-input'</span>)!;
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// error: property `value` does not exist on type `HTMLElement`</span>
+<span class="hljs-built_in">console</span>.log(nameInput.value)
+</code></pre>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>"Assertion", dass ein Wert einen bestimmten Typ hat mittels "as":</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">const</span> nameInput = <span class="hljs-built_in">document</span>.getElementById(
+  <span class="hljs-string">'name-input'</span>
 ) <span class="hljs-keyword">as</span> HTMLInputElement;
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.id);
+<span class="hljs-comment">// works</span>
+<span class="hljs-built_in">console</span>.log(nameInput.value);
+</code></pre>
+<p>(Bemerkung: <code>HTMLInputElement</code> ist eine Unterklasse von <code>HTMLElement</code>)</p>
+</section><section class="slide"><h2>Type Assertions</h2>
+<p>Beispiel: Fetchen von JSON-Daten</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> User = { <span class="hljs-attr">username</span>: <span class="hljs-built_in">string</span>; picture: <span class="hljs-built_in">string</span> };
 
-<span class="hljs-built_in">console</span>.log(myInput.value);
-</code></pre>
-</section><section class="slide"><h2>Typen / Interfaces und Klassen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoType {
-  <span class="hljs-comment">/* ... */</span>
-}
-
-<span class="hljs-keyword">class</span> AdvancedTodo <span class="hljs-keyword">implements</span> TodoInterface {
-  <span class="hljs-comment">/* ... */</span>
-}
-</code></pre>
-</section><section class="slide"><h2>Intersection Types</h2>
-<p>Mittels <code>&#x26;</code>:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a &#x26; b;
-</code></pre>
-<p>Der Intersection Typ <code>x</code> kann gegenüber <code>a</code>:</p>
-<ul>
-<li>Werte von existierenden Properties weiter einschränken</li>
-<li>zusätzliche verpflichtende Properties hinzufügen</li>
-</ul>
-</section><section class="slide"><h2>Intersection Types: Konkretisierung von Typen</h2>
-<p>Beispiel aus Redux:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Action = {
-  <span class="hljs-keyword">type</span>: <span class="hljs-built_in">string</span>;
-  payload?: <span class="hljs-built_in">any</span>;
-};
-
-<span class="hljs-keyword">type</span> AddTodoAction = Action &#x26; {
-  <span class="hljs-keyword">type</span>: <span class="hljs-string">'addTodo'</span>;
-  payload: <span class="hljs-built_in">string</span>;
-};
-</code></pre>
-</section><section class="slide"><h2>Intersection Types: Kombinieren von Typen</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> Serializable = {
-  serialize: <span class="hljs-function"><span class="hljs-params">()</span> =></span> <span class="hljs-built_in">string</span>;
-};
-
-<span class="hljs-keyword">type</span> SerializableAction = Action &#x26; Serializable;
-</code></pre>
-<p>Objekte, die den Typ <code>SerializableAction</code> implementieren, müssen sowohl alle Einträge aus <code>Serializable</code> als auch aus <code>Action</code> implementieren.</p>
-</section><section class="slide"><h2>Union Types</h2>
-<p>Der Typ <code>x</code> muss entweder alle Kriterien von <code>a</code> erfüllen oder alle Kriterien von <code>b</code> erfüllen.</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> x = a | b;
-</code></pre>
-<p>Alternative Schreibweise über mehrere Zeilen:</p>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">type</span> TodoActionType =
-  | AddTodoActionType
-  | ToggleTodoActionType;
-</code></pre>
-</section><section class="slide"><h2>Private &#x26; Public Properties</h2>
-<pre><code class="hljs language-ts"><span class="hljs-keyword">class</span> Clock {
-  <span class="hljs-keyword">private</span> formatTime(time) {
-    <span class="hljs-keyword">return</span> ...
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fetchUser</span>(<span class="hljs-params"></span>): <span class="hljs-title">Promise</span>&#x3C;<span class="hljs-title">User</span>> </span>{
+  <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">'/api/user'</span>);
+  <span class="hljs-keyword">if</span> (!res.ok) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'fetch failed'</span>);
   }
-  <span class="hljs-keyword">public</span> start() {
-    ...
-  }
+  <span class="hljs-keyword">const</span> user = (<span class="hljs-keyword">await</span> res.json()) <span class="hljs-keyword">as</span> User;
+  <span class="hljs-keyword">return</span> user;
 }
 </code></pre></section></section></div>
     </div>

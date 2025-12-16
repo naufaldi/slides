@@ -2061,34 +2061,6 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>HTML</h1>
-</section><section class="slide"><h2>Präsentationen</h2>
-<p><a href="https://marko-knoebl.github.io/slides/">https://marko-knoebl.github.io/slides/</a></p>
-</section><section class="slide"><h2>Ihr Trainer</h2>
-<p>Marko Knöbl</p>
-<ul>
-<li>aus Wien</li>
-<li>ehemaliger Mathematiklehrer</li>
-<li>Programmierthemen:<ul>
-<li>JavaScript, TypeScript und React</li>
-<li>Python, Data Science</li>
-</ul></li>
-</ul>
-</section><section class="slide"><h2>Vorstellung der Teilnehmer</h2>
-<ul>
-<li>Aktuelle Projekte</li>
-<li>Vorkenntnisse</li>
-<li>Erwartungen / Wünsche</li>
-</ul>
-</section><section class="slide"><h2>Organisatorisches</h2>
-<ul>
-<li>Kursdauer</li>
-<li>Pausen</li>
-<li>Mittagessen</li>
-<li>Unterlagen</li>
-<li>Fragen, Feedback? - Jederzeit erwünscht</li>
-</ul>
-</section><section class="slide"><h2>Code</h2>
-<p>Code verfügbar unter: <a href="https://github.com/marko-knoebl/courses-code">https://github.com/marko-knoebl/courses-code</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>HTML, CSS &#x26; JavaScript</h1>
 </section><section class="slide"><h2>HTML, CSS &#x26; JavaScript</h2>
 <p>Zentrale Technologien, die der Browser verwendet:</p>
@@ -2131,20 +2103,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-html"><span class="hljs-comment">&#x3C;!-- dies ist ein Kommentar --></span>
 </code></pre>
 </section><section class="slide"><h2>Ausprobieren</h2>
-<p><a href="https://codesandbox.io/s/">https://codesandbox.io/s/</a> → <em>static</em></p>
-<p>(Alternativen: <a href="https://codepen.io">https://codepen.io</a> <a href="https://jsfiddle.net">https://jsfiddle.net</a>, <a href="https://plnkr.co">https://plnkr.co</a>)</p>
+<p><a href="https://codesandbox.io/s/" target="_blank">https://codesandbox.io/s/</a> → <em>static</em></p>
+<p>(Alternativen: <a href="https://codepen.io" target="_blank">https://codepen.io</a> <a href="https://jsfiddle.net" target="_blank">https://jsfiddle.net</a>, <a href="https://plnkr.co" target="_blank">https://plnkr.co</a>)</p>
 </section><section class="slide"><h2>Browser tools (F12)</h2>
 <p>Übung: Bestehende Website in Browser Tools begutachten</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Struktur eines HTML-Dokuments</h1>
 </section><section class="slide"><h2>Struktur eines HTML-Dokuments</h2>
-<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"de"</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Struktur eines HTML-Dokuments</h2>
-<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<pre><code class="hljs language-html"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
 </code></pre>
 <p>Deklariert die Datei als HTML(5)-Dokument</p>
 </section><section class="slide"><h2>Struktur eines HTML-Dokuments</h2>
@@ -2194,24 +2166,28 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Einbindung meist im head, z.B.:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span>
   <span class="hljs-attr">rel</span>=<span class="hljs-string">"stylesheet"</span>
-  <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/picnic"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"</span>
 /></span>
 </code></pre>
 </section><section class="slide"><h2>CSS Resets</h2>
 <p>Resets: Stylesheets, die grundlegende Stile über verschiedene Browser hinweg vereinheitlichen:</p>
 <ul>
-<li><em>normalize.css</em>: <a href="https://necolas.github.io/normalize.css/">website</a>, <a href="https://cdn.jsdelivr.net/npm/normalize.css/normalize.css">CDN</a></li>
-<li><em>sanitize.css</em>: basiert auf normalize - <a href="https://csstools.github.io/sanitize.css/">website</a>, <a href="https://cdn.jsdelivr.net/npm/sanitize.css/sanitize.css">CDN</a></li>
-<li><em>reboot</em>: basiert auf normalize, dient als Basis für Bootstrap - <a href="https://getbootstrap.com/docs/4.0/content/reboot/">website</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css">CDN</a></li>
+<li><em>normalize.css</em>: <a href="https://necolas.github.io/normalize.css/" target="_blank">website</a>, <a href="https://cdn.jsdelivr.net/npm/normalize.css/normalize.css" target="_blank">CDN</a></li>
+<li><em>sanitize.css</em>: basiert auf normalize - <a href="https://csstools.github.io/sanitize.css/" target="_blank">website</a>, <a href="https://cdn.jsdelivr.net/npm/sanitize.css/sanitize.css" target="_blank">CDN</a></li>
+<li><em>reboot</em>: basiert auf normalize, dient als Basis für Bootstrap - <a href="https://getbootstrap.com/docs/4.0/content/reboot/" target="_blank">website</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap-reboot.css" target="_blank">CDN</a></li>
 </ul>
 <p>CDN: Content Delivery Network - Services, die CSS- und JS-Libraries hosten</p>
+</section><section class="slide"><h2>Semantische CSS-Starter</h2>
+<ul>
+<li><a href="https://watercss.kognise.dev/" target="_blank">water.css</a></li>
+<li><a href="https://newcss.net" target="_blank">new.css</a></li>
+<li><a href="https://simplecss.org/" target="_blank">simple.css</a></li>
+</ul>
 </section><section class="slide"><h2>CSS Libraries</h2>
 <p>CSS Libraries:</p>
 <ul>
-<li><em>Picnic CSS</em>: einfache CSS-Library, ohne JavaScript - <a href="https://picnicss.com/">website</a>, <a href="https://cdn.jsdelivr.net/npm/picnic">CDN</a></li>
-<li><em>Bootstrap</em>: weit verbreitete CSS-Library mit vielen verfügbaren Themes - <a href="https://getbootstrap.com/">website</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css">CDN für CSS</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js">CDN für JS</a></li>
-<li><em>Semantic UI</em> - <a href="https://semantic-ui.com">website</a>, <a href="https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css">CDN für CSS</a>, <a href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js">CDN für JS</a></li>
-<li><em>Foundation</em> - <a href="https://get.foundation/sites/docs/">website</a>, <a href="https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css">CDN für CSS</a>, <a href="https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js">CDN für JS</a></li>
+<li><em>Bootstrap</em>: weit verbreitete CSS-Library mit vielen verfügbaren Themes - <a href="https://getbootstrap.com/" target="_blank">website</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css" target="_blank">CDN für CSS</a>, <a href="https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js" target="_blank">CDN für JS</a></li>
+<li><em>Tailwind</em> - <a href="https://tailwindcss.com/" target="_blank">website</a>, <a href="https://unpkg.com/tailwindcss@%5E2/dist/tailwind.min.css" target="_blank">CDN</a></li>
 </ul>
 <!--
 
@@ -2236,9 +2212,9 @@ https://getbootstrap.com/
 </section><section class="slide"><h2>HTML Elemente</h2>
 <p>vollständige Liste:</p>
 <ul>
-<li><a href="https://www.w3schools.com/tags/ref_byfunc.asp">https://www.w3schools.com/tags/ref_byfunc.asp</a></li>
-<li><a href="https://www.w3schools.com/TAgs/default.asp">https://www.w3schools.com/TAgs/default.asp</a></li>
-<li><a href="https://developer.mozilla.org/de/docs/Web/HTML/Element">https://developer.mozilla.org/de/docs/Web/HTML/Element</a></li>
+<li><a href="https://www.w3schools.com/tags/ref_byfunc.asp" target="_blank">https://www.w3schools.com/tags/ref_byfunc.asp</a></li>
+<li><a href="https://www.w3schools.com/TAgs/default.asp" target="_blank">https://www.w3schools.com/TAgs/default.asp</a></li>
+<li><a href="https://developer.mozilla.org/de/docs/Web/HTML/Element" target="_blank">https://developer.mozilla.org/de/docs/Web/HTML/Element</a></li>
 </ul>
 </section><section class="slide"><h2>Übung</h2>
 <p>Wir erstellen eine Website für ein Restaurant</p>
@@ -2266,7 +2242,7 @@ https://getbootstrap.com/
 <li>article</li>
 </ul>
 </section><section class="slide"><h2>Headings und strukturierende Elemente</h2>
-<p>Headings innerhalb von <em>nav</em>, <em>aside</em>, <em>article</em>, <em>section</em> haben automatisch angepasste Größen:</p>
+<p><em>h1</em>-Elemente innerhalb von <em>nav</em>, <em>aside</em>, <em>article</em>, <em>section</em> haben automatisch angepasste Größen:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>big heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">section</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>medium heading<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
@@ -2284,8 +2260,8 @@ https://getbootstrap.com/
 </section><section class="slide"><h2>Links</h2>
 <p>Beispiel:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"https://en.wikipedia.org/wiki/HTML"</span>
-  ></span>Wikipedia article<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>
-></span>
+  ></span>Wikipedia article&#x3C;/a
+>
 </code></pre>
 </section><section class="slide"><h2>Links</h2>
 <p>Öffnen in neuem Tab oder Fenster:</p>
@@ -2293,8 +2269,8 @@ https://getbootstrap.com/
   <span class="hljs-attr">href</span>=<span class="hljs-string">"https://en.wikipedia.org/wiki/HTML"</span>
   <span class="hljs-attr">target</span>=<span class="hljs-string">"_blank"</span>
   <span class="hljs-attr">rel</span>=<span class="hljs-string">"noreferrer"</span>
-  ></span>Wikipedia article<span class="hljs-tag">&#x3C;/<span class="hljs-name">a</span>
-></span>
+  ></span>Wikipedia article&#x3C;/a
+>
 </code></pre>
 </section><section class="slide"><h2>Links</h2>
 <p>E-Mail-Link:</p>
@@ -2504,7 +2480,7 @@ Wetter <span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span
   "</span>
 /></span>
 </code></pre>
-<p>Demo: <a href="http://srcset.salcode.com/">http://srcset.salcode.com/</a></p>
+<p>Demo: <a href="http://srcset.salcode.com/" target="_blank">http://srcset.salcode.com/</a></p>
 </section><section class="slide"><h2>video</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">video</span> <span class="hljs-attr">autoplay</span> <span class="hljs-attr">loop</span> <span class="hljs-attr">controls</span> <span class="hljs-attr">width</span>=<span class="hljs-string">"250"</span>></span>
   <span class="hljs-tag">&#x3C;<span class="hljs-name">source</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myvideo.webm"</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"video/webm"</span> /></span>
@@ -2512,10 +2488,28 @@ Wetter <span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span
   Sorry, your browser doesn't support embedded videos.
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">video</span>></span>
 </code></pre>
-<p>Beispielvideo: <a href="https://interactive-examples.mdn.mozilla.net/media/examples/flower">https://interactive-examples.mdn.mozilla.net/media/examples/flower</a>.*</p>
+<p>Beispielvideo: <a href="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm" target="_blank">https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.webm</a></p>
 </section><section class="slide"><h2>audio</h2>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">audio</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"myaudio.mk"</span> <span class="hljs-attr">loop</span> <span class="hljs-attr">volume</span>=<span class="hljs-string">"0.5"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">audio</span>></span>
 </code></pre>
+</section><section class="slide"><h2>Bildformate</h2>
+<p>relevante Bildformate für das Web:</p>
+<ul>
+<li><em>jpg</em></li>
+<li><em>png</em> (verlustfreie Komprimierung)</li>
+<li><em>webp</em> (bessere Komprimierung im Vergleich zu <em>jpg</em> und <em>png</em>)</li>
+<li><em>avif</em> (zukünftiges Format)</li>
+<li><em>gif</em> (animiert, eingeschränkte Farbpalette)</li>
+<li><em>svg</em> (Vektorgrafiken)</li>
+</ul>
+</section><section class="slide"><h2>Videoformate</h2>
+<p>relevante Videoformate für das Web:</p>
+<ul>
+<li><em>MP4</em> Container, <em>H.264</em> (<em>AVC</em>) Codec: universell unterstützt, patentiert, gute Qualität</li>
+<li><em>MP4</em> Container, <em>H.265</em> (<em>HEVC</em>) Codec: patentiert, bessere Qualität</li>
+<li><em>WebM</em> Container, <em>AV1</em> Codec: Kandidat für neuen Standard, open source, besser Qualität</li>
+</ul>
+<p>siehe auch: <a href="https://en.wikipedia.org/wiki/HTML5_video" target="_blank">Wikipedia: HTML5 video</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Tabellen</h1>
 </section><section class="slide"><h2>Tabellen</h2>
 <p>Tags:</p>
@@ -2556,7 +2550,7 @@ Wetter <span class="hljs-tag">&#x3C;<span class="hljs-name">strong</span>></span
 </code></pre>
 <p>Hintergrund:<br />
 In den Anfängen des mobilen Web (vor responsive Design) wurden Websites von mobilen Browsern of verkleinert dargestellt. Mit obigem Code wird dies verhindert.</p>
-<p><a href="https://viewportsizes.com/mine">https://viewportsizes.com/mine</a></p>
+<p><a href="https://viewportsizes.com/mine" target="_blank">https://viewportsizes.com/mine</a></p>
 </section><section class="slide"><h2>meta: description</h2>
 <p>Kann von Suchmaschinen verwendet werden, um eine Seitenzusammenfassung anzuzeigen<br />
 Standardtitel für Lesezeichen</p>
@@ -2569,17 +2563,16 @@ Standardtitel für Lesezeichen</p>
 <p>Kann von Suchmaschinen verwendet werden</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"keywords"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"HTML,javascript"</span> /></span>
 </code></pre>
-</section><section class="slide"><h2>meta: http-equiv="X-UA-Compatible"</h2>
-<p>Ist bei Internet Explorer &#x3C;= 10 relevant; führt zur Verwendung der modernsten Version der Rendering-Engine</p>
 </section><section class="slide"><h2>favicon</h2>
-<p>Icon, das im Tab der Website angezeigt wird</p>
+<p>Icon, das im Tab der Website angezeigt wird:</p>
 <pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span>
   <span class="hljs-attr">rel</span>=<span class="hljs-string">"icon"</span>
-  <span class="hljs-attr">sizes</span>=<span class="hljs-string">"16x16"</span>
-  <span class="hljs-attr">href</span>=<span class="hljs-string">"favicon_16.png"</span>
+  <span class="hljs-attr">sizes</span>=<span class="hljs-string">"32x32"</span>
+  <span class="hljs-attr">href</span>=<span class="hljs-string">"favicon_32.png"</span>
   <span class="hljs-attr">type</span>=<span class="hljs-string">"image/png"</span>
 /></span>
 </code></pre>
+<p>ohne einen expliziten Link suchen Browser nach <em>favicon.ico</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Accessibility</h1>
 </section><section class="slide"><h2>Accessibility</h2>
 <p>Strategien, um Websites für möglichst viele Menschen verwendbar zu machen</p>
@@ -2599,8 +2592,8 @@ Standardtitel für Lesezeichen</p>
 <ul>
 <li>Verwendung semantischer HTML Elemente (z.B. <code>button</code> und <code>section</code> statt <code>div</code>)</li>
 <li>Sinnvolle Texte auf Links bzw Buttons
-Schlechtes Beispiel: Klicken Sie <a href="https://en.wikipedia.org/wiki/Accessibility">hier</a>, um mehr zum Thema <em>Accessibility</em> zu erfahren
-Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibility">mehr zum Thema Accessibility</a></li>
+Schlechtes Beispiel: Klicken Sie <a href="https://en.wikipedia.org/wiki/Accessibility" target="_blank">hier</a>, um mehr zum Thema <em>Accessibility</em> zu erfahren
+Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibility" target="_blank">mehr zum Thema Accessibility</a></li>
 <li>Zugeordnete Label für Eingabefelder</li>
 <li>Alternativtext für Bildinhalte</li>
 </ul>
@@ -2619,16 +2612,16 @@ Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibilit
 </ul>
 </section><section class="slide"><h2>Resourcen</h2>
 <ul>
-<li><a href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML">MDN: A good basis for accessibility</a></li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Learn/Accessibility/HTML" target="_blank">MDN: A good basis for accessibility</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Hosting</h1>
 </section><section class="slide"><h2>Hosting</h2>
 <p>Hosting für statische Websites wird vielfach kostenlos angeboten:</p>
 <ul>
-<li><a href="https://zeit.co">zeit.co</a> (command-line tool <em>now</em>)</li>
-<li><a href="https://pages.github.com">Github Pages</a></li>
-<li><a href="https://tiiny.host/">tiiny.host</a> (ohne Login für 24 h gehostet)</li>
-<li><a href="https://netlify.com/drop">netlify.com/drop</a> (ohne Login für 24 h gehostet)</li>
+<li><a href="https://zeit.co" target="_blank">zeit.co</a> (command-line tool <em>now</em>)</li>
+<li><a href="https://pages.github.com" target="_blank">Github Pages</a></li>
+<li><a href="https://tiiny.host/" target="_blank">tiiny.host</a> (ohne Login für 24 h gehostet)</li>
+<li><a href="https://netlify.com/drop" target="_blank">netlify.com/drop</a> (ohne Login für 24 h gehostet)</li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Bootstrap</h1>
 </section><section class="slide"><h2>Bootstrap</h2>
@@ -2638,15 +2631,6 @@ Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibilit
 <li>ohne eigenes Zutun: Standardstil von Elementen wie <code>body</code>, <code>h1</code>, <code>button</code>, ... verändert sich</li>
 <li>für weitere Funktionalität: Das Attribut <code>class</code> kann gesetzt werden</li>
 </ul>
-</section><section class="slide"><h2>Bootstrap - Projekt: Restaurantwebsite</h2>
-<p>Wir erstellen eine einfache Website - z.B. für ein Restaurant.</p>
-<p>Inhalt unter anderem:</p>
-<ul>
-<li>Navigationsmenü</li>
-<li>Tabelle mit Öffnungszeiten</li>
-<li>Formular zum Reservieren</li>
-<li>Slideshow mit Bildern</li>
-</ul>
 </section><section class="slide"><h2>Bootstrap: Container</h2>
 <p>Container = grundlegender Baustein für bootstrap, oberste Unterteilungsebene für das Dokument</p>
 <ul>
@@ -2654,27 +2638,25 @@ Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibilit
 <li><code>&#x3C;div class="container"></code>: Container, der auf bestimmte Größen (Breakpoints) "einrastet"</li>
 </ul>
 </section><section class="slide"><h2>Bootstrap: Spaltenlayout (einfach)</h2>
-<p>Mit Klassen <code>container</code>, <code>row</code> und <code>col</code></p>
-<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"container"</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>one<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>two<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>three<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>four<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-    <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>five<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
-  <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+<p>mit Klassen <code>row</code> und <code>col</code></p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>one<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>two<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>three<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"row"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>four<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"col"</span>></span>five<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
 </code></pre>
 </section><section class="slide"><h2>Bootstrap: margins</h2>
 <p>Margins sind Abstände von Elementen. Sie helfen beim gestalten von Layouts.</p>
 <p>Bootstrap bietet hierzu vorgefertigte Klassen, z.B.:</p>
 <ul>
-<li><code>ml-auto</code>: margin-left: auto</li>
 <li><code>ml-1</code>: kleiner Margin links</li>
 <li><code>mt-4</code>: großer Margin oben (top)</li>
 <li><code>my-2</code>: mittlerer Margin in y-Richtung (oben und unten)</li>
+<li><code>mx-auto</code>: automatischer horizontaler Abstand (zentriert)</li>
 </ul>
 </section><section class="slide"><h2>Bootstrap: Elemente und vorgefertigte Komponenten</h2>
 <p>z.B.:</p>
@@ -2685,9 +2667,18 @@ Gutes Beispiel: Erfahren Sie <a href="https://en.wikipedia.org/wiki/Accessibilit
 <li>navbar</li>
 <li>...</li>
 </ul>
+</section><section class="slide"><h2>Bootstrap - Projekt: Restaurantwebsite</h2>
+<p>Wir erstellen eine einfache Website - z.B. für ein Restaurant.</p>
+<p>Inhalt unter anderem:</p>
+<ul>
+<li>Navigationsmenü</li>
+<li>Tabelle mit Öffnungszeiten</li>
+<li>Formular zum Reservieren</li>
+<li>Slideshow mit Bildern</li>
+</ul>
 </section></section><section class="slides-section"><section class="slide"><h1>VS Code</h1>
 </section><section class="slide"><h2>VS Code</h2>
-<p>Präsentation: <a href="./vs-code-de.html">VS Code Grundlagen und Plugins</a></p>
+<p>Präsentation: <a href="./vs-code-de.html" target="_blank">VS Code Grundlagen und Plugins</a></p>
 </section><section class="slide"><h2>HTML-Dokument in VS Code</h2>
 <p>Codeschnipsel: <code>html:5</code></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SVG</h1>

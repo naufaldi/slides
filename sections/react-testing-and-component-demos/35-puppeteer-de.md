@@ -11,8 +11,8 @@ npm run start
 ## Testen einer React-Anwendung mit Puppeteer
 
 ```js
-let browser;
-let page;
+let browser: puppeteer.Browser;
+let page: puppeteer.Page;
 beforeAll(async () => {
   browser = await puppeteer.launch();
 });
@@ -29,6 +29,10 @@ test("displays page with title 'React App'", async () => {
   expect(pageTitle).toEqual('React App');
 });
 ```
+
+## Testen einer React-Anwendung mit Puppeteer
+
+Übung: Überpfüge, ob die Todo-Anwendung die richtige Anzahl an _li_-Elementen anzeigt
 
 ## Puppeteer
 

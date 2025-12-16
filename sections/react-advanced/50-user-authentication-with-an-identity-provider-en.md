@@ -1,5 +1,11 @@
 # User authentication with an identity provider
 
+<!--
+related sections in:
+- react-advanced
+- node-and-express-intermediate
+-->
+
 ## Identity provider
 
 an _identity provider_ can verify the identity of users (can authenticate users)
@@ -16,17 +22,26 @@ mechanism for the user:
 
 user clicks on _login_, is redirected to a login page, and then sent back to the original site once logged in
 
-in the background the user will receive an _identity token_, a small piece of data that can prove their identity with the identity provider
+in the background the user will receive an _identity token_, a piece of data that can prove their identity with the identity provider
+
+## Identity provider
+
+standards:
+
+- authorization via _OAuth2_
+- authentication via _OpenID Connect_
 
 ## Auth0
 
 **Auth0** (_auth-zero_) is a widely-used identity provider
 
+supports authentication via "internal" accounts or external identity providers (e.g. _Google_, _Apple_, _Facebook_, ...)
+
 ## Auth0: Registration and setup
 
 - register for an Auth0 account on <https://auth0.com>
 - in the sidebar, select "Applications"
-- select the default application or create a new "Single Page Web Application"
+- select the default application or create a new "Single Page Web Application"; the selected name will be shown to users when they authenticate
 
 <!--
 registration details:
@@ -48,7 +63,7 @@ for local development, set all three to _http://localhost:3000_
 
 under _Settings_:
 
-each Auth0 registrant has at least one domain ( e.g. _dev-xxxxxxxx.eu.auth0.com_)
+each Auth0 registrant has at least one domain (e.g. _dev-xxxxxxxx.eu.auth0.com_)
 
 each app has a specific client ID (e.g. _jA0EAwMCxamDRMfOGV5gyZPnyX1BBPOQ_)
 
@@ -143,11 +158,10 @@ more entries in the return value of `useAuth0`:
 making a request with the access token:
 
 ```js
-const makeRequestSilently = () => {
-  auth.getAccessTokenSilently().then((token) => {
-    console.log(`make API request with token ${token}`);
-  });
-};
+async function makeRequestSilently() {
+  const token = await auth.getAccessTokenSilently();
+  console.log(`make API request with token ${token}`);
+}
 ```
 
 ## auth0-react
@@ -157,17 +171,21 @@ verifying an Auth0 token on the API side:
 ```js
 const auth0Domain = 'dev-xxxxxxxx.eu.auth0.com';
 
-fetch(`https://${auth0Domain}/userinfo`, {
-  headers: {
-    'Content-Type': 'application/json',
-    Authorization: `Bearer ${token}`,
-  },
-})
-  .then((res) => res.json())
-  .then((userInfo) => {
-    console.log(`authenticated as ${userInfo.sub}`);
-  })
-  .catch((error) => console.log('error'));
+try {
+  const res = await fetch(
+    `https://${auth0Domain}/userinfo`,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  const userInfo = await res.json();
+  console.log(`authenticated as ${userInfo.sub}`);
+} catch {
+  console.log('error');
+}
 ```
 
 note: just sending user info (e.g. user ID) from the client is not secure since it can't be verified by the API; information can only be verified via a token
@@ -178,3 +196,10 @@ note: just sending user info (e.g. user ID) from the client is not secure since 
 - <https://auth0.com/blog/complete-guide-to-react-user-authentication/>
 - <https://auth0.com/docs/libraries/auth0-react>
 - [API reference](https://auth0.github.io/auth0-react/)
+
+<!--
+examples of hooks that handle authentication:
+
+- https://usehooks.com/useAuth/
+- https://medium.com/hackernoon/learn-react-hooks-by-building-an-auth-based-to-do-app-c2d143928b0b
+-->

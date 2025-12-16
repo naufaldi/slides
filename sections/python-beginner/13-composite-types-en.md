@@ -31,6 +31,7 @@ exercise:
 
 create and modify dictionaries that represent various objects, e.g.:
 
+- a date (e.g. October 23, 1971)
 - a calendar event
 - a person
 - a product in an online shop
@@ -108,10 +109,10 @@ exercise:
 
 create and modify data consisting of _dicts_ and _lists_ that represents various objects, e.g.:
 
+- todos
 - calendar events
 - products in an online shop / shopping basket
 - transactions on a bank account
-- data on a country (including neighboring countries)
 
 ## Tuple
 

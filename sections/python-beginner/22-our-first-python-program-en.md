@@ -8,17 +8,10 @@ Our program will ask the user their name and greet them.
 
 ## Input and output of text
 
-Output: via the `print()` function:
-
-```py
-print("Hello. What is your name?")
-```
-
-## Input and output of text
-
 Input: via `input()`:
 
 ```py
+print("What is your name?")
 name = input()
 ```
 
@@ -59,7 +52,7 @@ _Run_ - _Run Without Debugging_ (Ctrl + F5)
 
 ## Exercise: age from birth year
 
-Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2020.
+Write a program called `age.py` which will ask the user for their birth year and will respond with the user's age in the year 2022.
 
 ## Exercise: length of the name
 

@@ -1,12 +1,8 @@
 - Python
   - catching exceptions earlier
   - ? recursive drawings with matplotlib
-  - `__name__ == "__main__"`
-  - csv import of iris data
   - include link to aicheatsheets.com
-  - free book: think python
-  - popular public Jupyter notebooks on kaggle: https://www.kaggle.com/notebooks?sortBy=voteCount
+  - WASM-based jupyter: https://jupyterlite.readthedocs.io/en/latest/try/lab (no keras)
 - react
   - import * as React from "react"
   - ? predefined redux project that can be used to create a react application
-- update prettier configuration / format everything according to new prettier defaults

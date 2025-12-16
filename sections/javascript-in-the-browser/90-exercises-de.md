@@ -1,8 +1,7 @@
 # Übungen
 
-- Lotto - Generator
-- uhr
-- Todo-Liste
-- chessboard
-- facebook
-- es6
+- Lottery number generator
+- clock
+- todo list
+- chess board
+- chat view

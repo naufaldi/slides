@@ -2069,6 +2069,19 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Request: from the browser (mostly)</p>
 <p>Response: from the server</p>
 <p>HTTP requests and responses are transferred via a <em>lower-level</em> protocol, most commonly <em>TCP</em></p>
+</section><section class="slide"><h2>HTTP</h2>
+<p>request format:</p>
+<ul>
+<li>request line</li>
+<li>header fields</li>
+<li>message body (optional)</li>
+</ul>
+<p>response format:</p>
+<ul>
+<li>status line</li>
+<li>header fields</li>
+<li>message body (optional)</li>
+</ul>
 </section><section class="slide"><h2>Experimenting with HTTP</h2>
 <p>via:</p>
 <ul>
@@ -2086,7 +2099,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <span class="hljs-attribute">Date</span>: Wed, 24 Apr 2019 07:50:41 GMT
 <span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
 
-<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">...</span>
 </span></span></code></pre>
 </section><section class="slide"><h2>HTTP example: Wikipedia search (1)</h2>
@@ -2110,7 +2123,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
 <span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
 
-<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE html></span>
+<span class="xml"><span class="hljs-meta">&#x3C;!DOCTYPE <span class="hljs-meta-keyword">html</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">...</span>
 </span></span></code></pre>
 </section><section class="slide"><h2>HTTP example: POST request</h2>
@@ -2127,8 +2140,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <pre><code class="hljs language-http">HTTP/2.0 <span class="hljs-number">200</span> OK
 <span class="hljs-attribute">Content-Type</span>: text/html; charset=UTF-8
 
-<span class="asciidoc"><span class="hljs-bullet">...
-</span></span></code></pre>
+<span class="node-repl"><span class="hljs-meta">...</span>
+</span></code></pre>
 </section><section class="slide"><h2>HTTP example: API</h2>
 <pre><code class="hljs language-http"><span class="hljs-attribute">GET /todos/12
 Host</span>: jsonplaceholder.typicode.com
@@ -2154,7 +2167,7 @@ Host</span>: jsonplaceholder.typicode.com
 <li><code>Accept-Encoding</code></li>
 <li><code>Cookie</code></li>
 <li><code>Cache-Control</code></li>
-<li><code>Dnt</code></li>
+<li><code>Authorization</code></li>
 </ul>
 </section><section class="slide"><h2>Important HTTP status codes</h2>
 <ul>
@@ -2179,7 +2192,7 @@ Host</span>: jsonplaceholder.typicode.com
 <ul>
 <li><code>500 Internal Server Error</code></li>
 </ul>
-<p>see also: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
+<p>see also: <a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes" target="_blank">https://en.wikipedia.org/wiki/List_of_HTTP_status_codes</a></p>
 </section><section class="slide"><h2>Important response header fields</h2>
 <ul>
 <li><code>Content-Length</code></li>
@@ -2290,9 +2303,9 @@ Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class
 <pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/todos/2</span> HTTP/2.0
 <span class="hljs-attribute">Host</span>: jsonplaceholder.typicode.com
 </code></pre>
-<p><em>get</em>: querying three entities by identifier:</p>
-<pre><code class="hljs language-http"><span class="hljs-keyword">GET</span> <span class="hljs-string">/rest/v2/alpha?codes=de;fr;it</span> HTTP/2.0
-<span class="hljs-attribute">Host</span>: restcountries.eu
+<p><em>get</em>: querying multiple entities:</p>
+<pre><code class="hljs language-http"><span class="hljs-attribute">GET /todos?userId=1&#x26;completed=false
+Host</span>: jsonplaceholder.typicode.com
 </code></pre>
 </section><section class="slide"><h2>REST examples</h2>
 <p><em>post</em>: adding an entry:</p>
@@ -2330,8 +2343,8 @@ Set-Cookie: <span class="hljs-attribute">IDCC</span>=AN0-TYtU7...fo; <span class
 </section><section class="slide"><h2>Resources</h2>
 <p>example REST APIs:</p>
 <ul>
-<li><a href="https://jsonplaceholder.typicode.com">jsonplaceholder.typicode.com</a></li>
-<li><a href="https://restcountries.eu">restcountries.eu</a></li>
+<li><a href="https://jsonplaceholder.typicode.com" target="_blank">jsonplaceholder.typicode.com</a></li>
+<li><a href="https://restcountries.eu" target="_blank">restcountries.eu</a></li>
 </ul></section></section></div>
     </div>
     <script>/*!

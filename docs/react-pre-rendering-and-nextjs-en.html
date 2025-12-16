@@ -2071,7 +2071,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </ul>
 </section><section class="slide"><h2>Pre-rendering</h2>
 <p>example:</p>
-<p>Disable JavaScript in your browser's developer tools settings and visit <a href="https://reactjs.org">reactjs.org</a> - you will still see content, though some interactivity will not work (e.g. dropdowns)</p>
+<p>Disable JavaScript in your browser's developer tools settings and visit <a href="https://reactjs.org" target="_blank">reactjs.org</a> - you will still see content, though some interactivity will not work (e.g. dropdowns)</p>
 </section><section class="slide"><h2>Approaches</h2>
 <ul>
 <li>static site generation (pre-rendering static content)</li>
@@ -2118,12 +2118,12 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li>backend / API development in the same project (for simple projects)</li>
 </ul>
 </section><section class="slide"><h2>Resources</h2>
-<p>The next.js website has great materials: <a href="https://nextjs.org">https://nextjs.org</a></p>
+<p>The next.js website has great materials: <a href="https://nextjs.org" target="_blank">https://nextjs.org</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Create-next-app</h1>
 </section><section class="slide"><h2>Create-next-app</h2>
-<pre><code class="hljs language-bash">npx create-next-app my-app
+<pre><code class="hljs language-bash">npx create-next-app@latest
 </code></pre>
-<pre><code class="hljs language-bash">npx create-next-app my-app --example typescript
+<pre><code class="hljs language-bash">npx create-next-app@latest --ts
 </code></pre>
 </section><section class="slide"><h2>Project structure</h2>
 <p>possible project structure:</p>
@@ -2149,15 +2149,16 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>then build the static version (to the <em>out</em> folder) via:</p>
 <pre><code class="hljs language-bash">npm run build
 </code></pre>
-<p>(see <a href="https://nextjs.org/learn/excel/static-html-export">https://nextjs.org/learn/excel/static-html-export</a>)</p>
+<p>(see <a href="https://nextjs.org/learn/excel/static-html-export" target="_blank">https://nextjs.org/learn/excel/static-html-export</a>)</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Pages and navigation</h1>
 </section><section class="slide"><h2>Pages and navigation</h2>
 <p>Example page definition:</p>
-<pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.js</span>
+<pre><code class="hljs language-js"><span class="hljs-comment">// pages/index.tsx</span>
+<span class="hljs-keyword">import</span> type { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'next'</span>;
 <span class="hljs-keyword">import</span> Link <span class="hljs-keyword">from</span> <span class="hljs-string">'next/link'</span>;
 <span class="hljs-keyword">import</span> Head <span class="hljs-keyword">from</span> <span class="hljs-string">'next/head'</span>;
 
-<span class="hljs-keyword">const</span> Index = <span class="hljs-function"><span class="hljs-params">()</span> =></span> (
+<span class="hljs-keyword">const</span> Index: NextPage = <span class="hljs-function">() =></span> (
   <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
     <span class="hljs-tag">&#x3C;<span class="hljs-name">Head</span>></span>
       <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>Home<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
@@ -2177,6 +2178,22 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <li><code>Link</code>: link inside a single-page application</li>
 <li><code>Head</code>: enables easily setting content of the page's <code>&#x3C;head></code> element</li>
 </ul>
+</section><section class="slide"><h2>Shared content</h2>
+<p>defining "global" content that is shared across all pages:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// _app.tsx</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyApp</span>(<span class="hljs-params">{ Component, pageProps }: AppProps</span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      {/* fixed header content */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">header</span>></span>header content<span class="hljs-tag">&#x3C;/<span class="hljs-name">header</span>></span>
+      {/* variable content - defined by the route */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">Component</span> {<span class="hljs-attr">...pageProps</span>} /></span>
+      {/* fixed footer content */}
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">footer</span>></span>footer content<span class="hljs-tag">&#x3C;/<span class="hljs-name">footer</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+}
+</code></pre>
 </section><section class="slide"><h2>Pages and navigation</h2>
 <p>Task: create further pages</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Pre-rendering and data fetching</h1>
@@ -2193,70 +2210,67 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Pre-rendering and data fetching</h2>
 <p>special (asynchronous) functions that we can export from a page definition file:</p>
 <ul>
+<li><code>getServerSideProps</code> (runs every time a page is requested)</li>
 <li><code>getStaticProps</code> (runs during build)</li>
-<li><code>getServerSideProps</code> (runs on user request)</li>
 </ul>
 <p>can load data and pass them into the page components as props</p>
 <p>are only executed on the build machine or server respectively → may read files or make direct database queries</p>
 <p>The functionality of <em>fetch</em> will be polyfilled automatically</p>
 </section><section class="slide"><h2>Pre-rendering</h2>
-<p>example: a page that contains a new Joke every time it is rebuilt</p>
-<pre><code class="hljs language-tsx">const ChuckNorrisJoke = (props: Props) => (
+<p>example: a page that loads a random joke from an API</p>
+<pre><code class="hljs language-tsx">import type { GetServerSideProps, NextPage } from 'next';
+
+type JokeProps = { joke: string };
+const Joke: NextPage&#x3C;JokeProps> = (props) => (
   &#x3C;article>{props.joke}&#x3C;/article>
 );
-
-export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(
-    'https://api.chucknorris.io/jokes/random'
-  );
-  const text = (await res.json()).value;
-  return { props: { joke: text } };
+const getServerSideProps: GetServerSideProps&#x3C;JokeProps> = async () => {
+  const url = 'https://api.chucknorris.io/jokes/random';
+  const res = await fetch(url);
+  const joke = (await res.json()).value;
+  return { props: { joke: joke } };
 };
 
-export default ChuckNorrisJoke;
-</code></pre>
-</section><section class="slide"><h2>Pre-rendering</h2>
-<p>example: a page that contains a new Joke every time it is accessed</p>
-<pre><code class="hljs language-tsx">const ChuckNorrisJoke = (props: Props) => (
-  &#x3C;article>{props.joke}&#x3C;/article>
-);
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(
-    'https://api.chucknorris.io/jokes/random'
-  );
-  const text = (await res.json()).value;
-  return { props: { joke: text } };
-};
-
-export default ChuckNorrisJoke;
+export default Joke;
+export { getServerSideProps };
 </code></pre>
 </section><section class="slide"><h2>Pre-rendering</h2>
 <p>exercises:</p>
 <ul>
-<li>pre-render a todo application with todos from <a href="https://jsonplaceholder.typicode.com/todos">https://jsonplaceholder.typicode.com/todos</a></li>
-<li>pre-render a list of pokemon with data from <a href="https://pokeapi.co/api/v2/pokemon">https://pokeapi.co/api/v2/pokemon</a></li>
+<li>pre-render a todo application with todos from <a href="https://jsonplaceholder.typicode.com/todos" target="_blank">https://jsonplaceholder.typicode.com/todos</a></li>
+<li>pre-render a list of pokemon with data from <a href="https://pokeapi.co/api/v2/pokemon" target="_blank">https://pokeapi.co/api/v2/pokemon</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Route parameters</h1>
 </section><section class="slide"><h2>Route parameters</h2>
 <p>we can query parameters from URLs like these:</p>
 <ul>
-<li><code>/posts/3</code></li>
-<li><code>/posts/?postid=3</code></li>
+<li><code>/todos/3</code></li>
+<li><code>/todos/?todoid=3</code></li>
 </ul>
 </section><section class="slide"><h2>Route parameters</h2>
-<p>Route parameters are enclosed in square brackets in the file name, e.g. <code>pages/spacex-launches/[id].js</code></p>
+<p>Route parameters are enclosed in square brackets in the file name, e.g. <code>pages/todos/[id].js</code></p>
+</section><section class="slide"><h2>Route parameters</h2>
+<p>Dynamically querying route parameters:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">'next'</span>;
+<span class="hljs-keyword">import</span> { useRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'next/router'</span>;
+
+<span class="hljs-keyword">const</span> TodoDetails: NextPage = <span class="hljs-function">() =></span> {
+  <span class="hljs-keyword">const</span> router = useRouter();
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
+      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>detail view for todo {router.query.id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+};
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> TodoDetails;
+</code></pre>
 </section><section class="slide"><h2>Route parameters</h2>
 <p>pre-rendering pages based on a set of route parameters - via <code>getStaticPaths</code></p>
-<pre><code class="hljs language-tsx">export const getStaticPaths: GetStaticPaths = async () => {
-  // get a list of paths to pre-render
-  const res = await fetch(
-    'https://api.spacexdata.com/v3/launches/latest'
-  );
-  const latest = (await res.json()).flight_number;
+<pre><code class="hljs language-tsx">export const getStaticPaths: GetStaticPaths = () => {
   const paths = [];
-  for (let i = 1; i &#x3C;= latest; i++) {
-    paths.push({ params: { id: i.toString() } });
+  for (let i = 1; i &#x3C;= 200; i++) {
+    paths.push({ params: { id: String(i) } });
   }
   return { paths, fallback: false };
 };
@@ -2265,30 +2279,7 @@ export default ChuckNorrisJoke;
 </section><section class="slide"><h2>Route parameters</h2>
 <p>after implementing <code>getStaticPaths</code> we can pre-render pages with dynamic routes</p>
 <pre><code class="hljs language-bash">npm run build
-</code></pre>
-</section><section class="slide"><h2>Route parameters</h2>
-<p>Dynamically querying route parameters:</p>
-<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useRouter } <span class="hljs-keyword">from</span> <span class="hljs-string">'next/router'</span>;
-
-<span class="hljs-keyword">const</span> Post = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-  <span class="hljs-keyword">const</span> router = useRouter();
-  <span class="hljs-keyword">return</span> (
-    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>
-      <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>detail view for post {router.query.id}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
-    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
-  );
-};
-
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Post;
-</code></pre>
-</section></section><section class="slides-section"><section class="slide"><h1>Deployment</h1>
-</section><section class="slide"><h2>Deployment</h2>
-<p><em>next</em> is developed by <em>Vercel</em>: good integration for deployment</p>
-</section><section class="slide"><h2>Deployment on Vercel</h2>
-<ol>
-<li>Upload to GitHub or similar</li>
-<li>Connect GitHub with Vercel and set up the project</li>
-</ol></section></section></div>
+</code></pre></section></section></div>
     </div>
     <script>/*!
  * reveal.js

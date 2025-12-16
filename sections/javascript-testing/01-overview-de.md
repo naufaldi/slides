@@ -6,16 +6,13 @@ Code kann automatisch getestet werden, um sicherzustellen, dass er wie erwartet 
 
 ## Tools für das Testen
 
-- _node_ wird als Runtime benötigt
-- _assert_: einfache Assertions, in node beinhaltet
-- _Jest_: test runner & assertion library
-- _Mocha_: test runner
-- _Chai_: assertion library
-- _Jasmine_: test runner & assertion library
+- Runtime: _node_
+- Test Runner: _node:test_ (seit node 18), _jest_, _mocha_
+- Assertion Libraries: _assert_ (in node beinhaltet), _jest_, _chai_
 
 Popularität:
 
-- [State of JS 2019: Umfrage zu Test-Tools](https://2019.stateofjs.com/testing/)
+- [State of JS 2021: Umfrage zu Test-Tools](https://2021.stateofjs.com/en-US/libraries/testing/)
 - [npmtrends](https://www.npmtrends.com/jest-vs-mocha-vs-chai-vs-jasmine)
 
 ## Einfaches Beispiel: shorten
@@ -27,11 +24,6 @@ shorten('loremipsum', 6);
 // should return 'lor...'
 ```
 
-Mögliche Zugänge:
-
-- mit Implementierung beginnen
-- mit Tests beginnen (test-driven development)
-
 ## Einfaches Beispiel: shorten
 
 Implementierung, die getestet werden soll:
@@ -41,10 +33,12 @@ Implementierung, die getestet werden soll:
  * shortens a given string to a specified length,
  * adding "..." at the end if it was shortened
  */
-const shorten = (s, maxlength) =>
-  s.length > maxlength
-    ? s.slice(0, maxlength - 3) + '...'
-    : s;
+function shorten(text, maxlength) {
+  if (text.length > maxlength) {
+    return text.slice(0, maxlength - 3) + '...';
+  }
+  return text;
+}
 export default shorten;
 ```
 
@@ -54,7 +48,7 @@ einfache Tests:
 
 ```js
 // shorten.test.js
-import assert from 'assert';
+import assert from 'assert/strict';
 import shorten from './shorten';
 
 assert.equal(shorten('loremipsum', 4), 'l...');

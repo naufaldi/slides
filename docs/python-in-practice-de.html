@@ -2081,7 +2081,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 <p>Oft ist eine Datei eine Folge von Textzeichen - z.B. die Formate <em>.txt</em>, <em>.html</em>, <em>.csv</em> oder <em>.py</em>.</p>
 <p>Der Inhalt von Textdateien kann als <em>Strings</em> geschrieben und gelesen werden, andere Dateien können als Bytefolge repräsentiert werden.</p>
 </section><section class="slide"><h2>Textdatei schreiben</h2>
-<pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, <span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 file.write(<span class="hljs-string">"hello world\n"</span>)
 file.write(<span class="hljs-string">"end\n"</span>)
 file.close()
@@ -2089,7 +2089,7 @@ file.close()
 <p>Die Datei wird zum Schreiben geöffnet (<em>w</em> = <em>write</em>).</p>
 <p>Als Zeichencodierung wird <em>UTF-8</em> verwendet.</p>
 </section><section class="slide"><h2>Textdatei lesen</h2>
-<pre><code class="hljs language-py">file = open(<span class="hljs-string">"message.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
+<pre><code class="hljs language-py">file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"message.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>)
 content = file.read()
 file.close()
 print(content)
@@ -2097,7 +2097,7 @@ print(content)
 <p>Standardmodus: Lesen (<em>r</em> = <em>read</em>)</p>
 </section><section class="slide"><h2>Dateimodi</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># mode: text, append</span>
-open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)
+<span class="hljs-built_in">open</span>(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string">"ta"</span>)
 </code></pre>
 </section><section class="slide"><h2>Dateimodi</h2>
 <ul>
@@ -2111,18 +2111,18 @@ open(<span class="hljs-string">"todos.txt"</span>, mode=<span class="hljs-string
 <li><code>a</code>: Anhängen</li>
 </ul>
 </section><section class="slide"><h2>Binärdateien</h2>
-<pre><code class="hljs language-py">wasm_content = bytes([
+<pre><code class="hljs language-py">wasm_content = <span class="hljs-built_in">bytes</span>([
     <span class="hljs-number">0</span>, <span class="hljs-number">97</span>, <span class="hljs-number">115</span>, <span class="hljs-number">109</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">96</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>, <span class="hljs-number">127</span>,
     <span class="hljs-number">3</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>, <span class="hljs-number">7</span>, <span class="hljs-number">10</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">97</span>, <span class="hljs-number">110</span>, <span class="hljs-number">115</span>, <span class="hljs-number">119</span>, <span class="hljs-number">101</span>, <span class="hljs-number">114</span>,
     <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">10</span>, <span class="hljs-number">6</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">0</span>, <span class="hljs-number">65</span>, <span class="hljs-number">42</span>, <span class="hljs-number">11</span>
 ])
 
-file = open(<span class="hljs-string">"answer.wasm"</span>, mode=<span class="hljs-string">"wb"</span>)
+file = <span class="hljs-built_in">open</span>(<span class="hljs-string">"answer.wasm"</span>, mode=<span class="hljs-string">"wb"</span>)
 file.write(wasm_content)
 file.close()
 </code></pre>
 </section><section class="slide"><h2>Open und das with-Statement</h2>
-<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"todos.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file_obj:
     content = file_obj.read()
 </code></pre>
 <p>Datei wird automatisch geschlossen, wenn der eingerückte Codeblock verlassen wird.</p>
@@ -2143,14 +2143,16 @@ locale.getpreferredencoding()
 <p>Objekte, die z.B. <code>.read()</code> oder <code>.write()</code> unterstützen:</p>
 <ul>
 <li>Dateien (z.B. via <code>open()</code>)</li>
-<li><code>sys.stdout</code>, <code>sys.stdin</code><ul>
+<li><code>sys.stdout</code>, <code>sys.stdin</code>
+<ul>
 <li>z.B. <code>sys.stdin.readline()</code></li>
-</ul></li>
+</ul>
+</li>
 <li>Antworten aus dem Netzwerk, z.B. via <code>urllib.request.urlopen('https://google.com')</code></li>
 </ul>
 </section><section class="slide"><h2>File-like objects</h2>
 <p>Zeile für Zeile einlesen (geringer Speicherbedarf):</p>
-<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file:
+<pre><code class="hljs language-py"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.txt"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> file:
     <span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> file:
         print(line)
 </code></pre>
@@ -2185,13 +2187,13 @@ locale.getpreferredencoding()
 data = [<span class="hljs-string">"one"</span>, <span class="hljs-string">"two"</span>, <span class="hljs-string">"three"</span>]
 jsonstring = json.dumps(data)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"numbers.json"</span>, mode=<span class="hljs-string">"w"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonfile.write(jsonstring)
 </code></pre>
 </section><section class="slide"><h2>JSON lesen</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> json
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"numbers.json"</span>, encoding=<span class="hljs-string">"utf-8"</span>) <span class="hljs-keyword">as</span> jsonfile:
     jsonstring = jsonfile.read()
 data = json.loads(jsonstring)
 </code></pre>
@@ -2241,11 +2243,11 @@ data = [
     [<span class="hljs-string">'US'</span>, <span class="hljs-number">9.8</span>, <span class="hljs-number">327</span>]
 ]
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'countr.csv'</span>, <span class="hljs-string">'w'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
     writer = csv.writer(f)
     writer.writerows(data)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">'countr.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'countr.csv'</span>, encoding=<span class="hljs-string">'utf-8'</span>, newline=<span class="hljs-string">''</span>) <span class="hljs-keyword">as</span> f:
     reader = csv.reader(f)
     <span class="hljs-keyword">for</span> row <span class="hljs-keyword">in</span> reader:
         print(row)
@@ -2268,17 +2270,17 @@ name = et.SubElement(person, <span class="hljs-string">'name'</span>)
 name.text = <span class="hljs-string">'Adam'</span>
 age = et.SubElement(person, <span class="hljs-string">'age'</span>)
 age.text = <span class="hljs-string">'40'</span>
-age.set(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)
+age.<span class="hljs-built_in">set</span>(<span class="hljs-string">"unit"</span>, <span class="hljs-string">"years"</span>)
 </code></pre>
 </section><section class="slide"><h2>XML mit ElementTree: speichern</h2>
 <p>Beim Speichern von XML immer ein Encoding angeben!</p>
-<pre><code class="hljs language-py">xmlbytestring: bytes = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> file:
+<pre><code class="hljs language-py">xmlbytestring: <span class="hljs-built_in">bytes</span> = et.tostring(person, encoding=<span class="hljs-string">'utf-8'</span>)
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.xml"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> file:
     file.write(xmlbytestring)
 
 <span class="hljs-comment"># or</span>
-xmlstring: str = et.tostring(person, encoding=<span class="hljs-string">'unicode'</span>)
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>) <span class="hljs-keyword">as</span> file:
+xmlstring: <span class="hljs-built_in">str</span> = et.tostring(person, encoding=<span class="hljs-string">'unicode'</span>)
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"myfile.xml"</span>, encoding=<span class="hljs-string">"utf-8"</span>, mode=<span class="hljs-string">"w"</span>) <span class="hljs-keyword">as</span> file:
     file.write(xmlstring)
 
 <span class="hljs-comment"># or</span>
@@ -2309,13 +2311,13 @@ now = datetime.datetime.now()
 
 serialized = pickle.dumps(now)
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"wb"</span>) <span class="hljs-keyword">as</span> picklefile:
     picklefile.write(serialized)
 </code></pre>
 </section><section class="slide"><h2>Pickle</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> pickle
 
-<span class="hljs-keyword">with</span> open(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
+<span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">"datetime.pickle"</span>, mode=<span class="hljs-string">"rb"</span>) <span class="hljs-keyword">as</span> picklefile:
     serialized = picklefile.read()
 earlier = pickle.loads(serialized)
 </code></pre>
@@ -2388,7 +2390,7 @@ print(a)
 <li>eine Uhrzeit: <code>\d?\d:\d\d</code></li>
 </ul>
 </section><section class="slide"><h2>Ausprobieren</h2>
-<p>Online: <a href="https://regexr.com/">https://regexr.com/</a></p>
+<p>Online: <a href="https://regexr.com/" target="_blank">https://regexr.com/</a></p>
 <p>In VS Code: Ctrl+F und Klick auf den Button <em>.*</em></p>
 </section><section class="slide"><h2>Sonderzeichen und Escapes</h2>
 <p>Die folgenden Zeichen haben besondere Bedeutungen:</p>
@@ -2494,7 +2496,7 @@ match_iter = re.finditer(<span class="hljs-string">r"https?://.+?\.com"</span>, 
 </code></pre>
 </section><section class="slide"><h2>Mehrfach finden</h2>
 <p>Aufgabe: finde alle URLs in einem HTML-Dokument auf der Festplatte</p>
-<p>(Beispieldokument: z.B. Seite <a href="https://news.ycombinator.com">https://news.ycombinator.com</a> auf Festplatte speichern)</p>
+<p>(Beispieldokument: z.B. Seite <a href="https://news.ycombinator.com" target="_blank">https://news.ycombinator.com</a> auf Festplatte speichern)</p>
 </section><section class="slide"><h2>Einen Ausdruck und Unterausdrücke finden</h2>
 <pre><code class="hljs language-py">times = re.finditer(
     <span class="hljs-string">r'(\d?\d):(\d\d)'</span>,
@@ -2514,7 +2516,7 @@ re.finditer(my_re, ...)
 </code></pre>
 <p>wird zu</p>
 <pre><code class="hljs language-py">my_re = <span class="hljs-string">"..."</span>
-my_re_obj = re.compile(my_re)
+my_re_obj = re.<span class="hljs-built_in">compile</span>(my_re)
 
 my_re_obj.search(...)
 my_re_obj.finditer(...)
@@ -2527,7 +2529,7 @@ my_re_obj.finditer(...)
 </ul>
 </section><section class="slide"><h2>Resourcen</h2>
 <ul>
-<li><a href="http://automatetheboringstuff.com/chapter7/">http://automatetheboringstuff.com/chapter7/</a></li>
+<li><a href="http://automatetheboringstuff.com/chapter7/" target="_blank">http://automatetheboringstuff.com/chapter7/</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Datum und Zeit</h1>
 </section><section class="slide"><h2>Datum und Zeit</h2>
@@ -2552,7 +2554,7 @@ c - b
 </code></pre>
 </section><section class="slide"><h2>time.sleep</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> time
-<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> range(<span class="hljs-number">10</span>):
+<span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):
     print(i)
     time.sleep(<span class="hljs-number">1</span>)
 </code></pre>
@@ -2589,7 +2591,7 @@ print(sys.argv)
 old_stdout = sys.stdout
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LoudStdout</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write</span><span class="hljs-params">(self, text)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">write</span>(<span class="hljs-params">self, text</span>):</span>
         old_stdout.write(text.upper())
 
 loudstdout = LoudStdout()
@@ -2629,7 +2631,7 @@ print(content)
 <p>in Standardlibrary</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib <span class="hljs-keyword">import</span> request
 
-content: bytes = request.urlopen(
+content: <span class="hljs-built_in">bytes</span> = request.urlopen(
                     <span class="hljs-string">"https://www.google.com"</span>).read()
 </code></pre>
 </section><section class="slide"><h2>requests</h2>
@@ -2638,16 +2640,16 @@ content: bytes = request.urlopen(
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> requests
 
-content: str = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text
+content: <span class="hljs-built_in">str</span> = requests.get(<span class="hljs-string">"https://www.google.com"</span>).text
 </code></pre>
 </section><section class="slide"><h2>Übungen</h2>
 <ul>
 <li>web scraping: Anzahl der Google-Suchergebnisse</li>
 <li>web scraping: Überschriften (Headings) in einem Wikipedia Artikel</li>
 <li>APIs: Wetterdaten
-<a href="https://automatetheboringstuff.com/chapter14/">https://automatetheboringstuff.com/chapter14/</a></li>
+<a href="https://automatetheboringstuff.com/chapter14/" target="_blank">https://automatetheboringstuff.com/chapter14/</a></li>
 <li>Web Scraping: xkcd Downloader
-<a href="https://automatetheboringstuff.com/chapter11/">https://automatetheboringstuff.com/chapter11/</a></li>
+<a href="https://automatetheboringstuff.com/chapter11/" target="_blank">https://automatetheboringstuff.com/chapter11/</a></li>
 </ul>
 </section><section class="slide"><h2>Selenium</h2>
 <p>Installation:</p>
@@ -2655,22 +2657,27 @@ content: str = requests.get(<span class="hljs-string">"https://www.google.com"</
 </code></pre>
 <p>geckodriver / chromedriver / ...</p>
 <p>geckodriver Download von:</p>
-<p><a href="https://github.com/mozilla/geckodriver/releases/tag/v0.23.0">https://github.com/mozilla/geckodriver/releases/tag/v0.23.0</a></p>
+<p><a href="https://github.com/mozilla/geckodriver/releases/tag/v0.23.0" target="_blank">https://github.com/mozilla/geckodriver/releases/tag/v0.23.0</a></p>
 <p>Herunterladen und in einem Pfad in Pythons <code>sys.path</code> ablegen - oder im Projektverzeichnis</p>
 </section></section><section class="slides-section"><section class="slide"><h1>HTTP</h1>
 </section><section class="slide"><h2>HTTP</h2>
-<p>Siehe <a href="./http-de.html">Präsentation zu HTTP</a></p>
+<p>Siehe <a href="./http-de.html" target="_blank">Präsentation zu HTTP</a></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Serverseitiges HTTP</h1>
 </section><section class="slide"><h2>Exkurs: Lokalen Dateiserver mit Python betreiben</h2>
 <pre><code class="hljs language-bash">python -m http.server
 </code></pre>
 </section><section class="slide"><h2>Python am Server - Überblick</h2>
-<p><a href="https://docs.python.org/2/howto/webservers.html">https://docs.python.org/2/howto/webservers.html</a></p>
+<p><a href="https://docs.python.org/2/howto/webservers.html" target="_blank">https://docs.python.org/2/howto/webservers.html</a></p>
 <p>(etwas veraltet)</p>
+</section><section class="slide"><h2>CGI, WSGI und ASGI</h2>
+<p>= Standard-Interfaces, um ein Programm auf einem Server auf einen HTTP-Request antworten zu lassen</p>
+<ul>
+<li><em>CGI</em>: Sprachenübergreifender Standard, langsam / resourcenintensiv</li>
+<li><em>WSGI</em>: Adaptierung von CGI für Python</li>
+<li><em>ASGI</em>: Asynchrone Version von WSGI</li>
+</ul>
 </section><section class="slide"><h2>CGI</h2>
-<p>CGI = <em>Common Gateway Interface</em></p>
-<p>Standard, um ein Programm am Server auf eine HTTP-Anfrage antworten zu lassen</p>
-<p>Interface zwischen Serversoftware (z.B. Apache) und Webanwendung (geschrieben in beliebiger Programmiersprache)</p>
+<p>CGI (<em>Common Gateway Interface</em>): Interface zwischen Serversoftware (z.B. Apache) und Webanwendung (geschrieben in beliebiger Programmiersprache)</p>
 <p>Interface beruht auf <em>stdin</em>, <em>stdout</em> und Umgebungsvariablen</p>
 <p>Nachteil: für jede Anfrage muss ein neuer Prozess gestartet werden (langsam)</p>
 </section><section class="slide"><h2>WSGI</h2>
@@ -2714,13 +2721,13 @@ server.serve_forever()
 <p>Dieser Teil wird üblicherweise von Libraries wie gunicorn übernommen</p>
 </section><section class="slide"><h2>Eigene WSGI-Anwendung in Python</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># app.py</span>
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span><span class="hljs-params">(environ, start_response)</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">application</span>(<span class="hljs-params">environ, start_response</span>):</span>
     response_status = <span class="hljs-string">"200 OK"</span>
     response_body_text = <span class="hljs-string">"hello"</span>
     response_body = response_body_text.encode(<span class="hljs-string">"utf-8"</span>)
     response_headers = [
         (<span class="hljs-string">"Content-Type"</span>, <span class="hljs-string">"text/plain; charset=utf-8"</span>),
-        (<span class="hljs-string">"Content-Length"</span>, str(len(response_body))),
+        (<span class="hljs-string">"Content-Length"</span>, <span class="hljs-built_in">str</span>(<span class="hljs-built_in">len</span>(response_body))),
     ]
     start_response(response_status, response_headers)
     <span class="hljs-keyword">return</span> [response_body]
@@ -2736,7 +2743,7 @@ server.serve_forever()
     <span class="hljs-string">"wsgi.input"</span>: ...
 }
 </code></pre>
-<p><a href="https://www.python.org/dev/peps/pep-0333/#environ-variables">https://www.python.org/dev/peps/pep-0333/#environ-variables</a></p>
+<p><a href="https://www.python.org/dev/peps/pep-0333/#environ-variables" target="_blank">https://www.python.org/dev/peps/pep-0333/#environ-variables</a></p>
 </section><section class="slide"><h2>PATH_INFO</h2>
 <p>PATH_INFO im environ-dictionary: angefragter Pfad am Server</p>
 <p>Aufgabe: Anzeige verschiedener Seiten unter verschiedenen Adressen</p>
@@ -2791,7 +2798,7 @@ mycookies[<span class="hljs-string">"cookie1"</span>].value
 <p>So lesen wir Parameter aus Formularen aus:</p>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> urllib.parse <span class="hljs-keyword">import</span> parse_qs
 
-request_body_size = int(environ.get(<span class="hljs-string">'CONTENT_LENGTH'</span>, <span class="hljs-string">'0'</span>))
+request_body_size = <span class="hljs-built_in">int</span>(environ.get(<span class="hljs-string">'CONTENT_LENGTH'</span>, <span class="hljs-string">'0'</span>))
 <span class="hljs-comment"># environ["wsgi.input"] is a file-like object</span>
 request_body = (environ[<span class="hljs-string">"wsgi.input"</span>]
                 .read(request_body_size)
@@ -2810,7 +2817,7 @@ first_name = parameters.get(<span class="hljs-string">"first-name"</span>)[<span
 </section><section class="slide"><h2>Achtung: JavaScript-Injection</h2>
 </section><section class="slide"><h2>Deployment auf pythonanywhere.com</h2>
 <ul>
-<li>neues Benutzerkonto auf <a href="https://pythonanywhere.com">https://pythonanywhere.com</a></li>
+<li>neues Benutzerkonto auf <a href="https://pythonanywhere.com" target="_blank">https://pythonanywhere.com</a></li>
 <li>add new web app</li>
 <li>manual configuration</li>
 </ul>
@@ -2827,7 +2834,7 @@ path = <span class="hljs-string">"/home/username/"</span>
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>HTTP API Entwicklung</h1>
 </section><section class="slide"><h2>HTTP API Entwicklung</h2>
-<p>Für Grundlagen siehe <a href="./http-de.html#/1">Präsentation zu HTTP</a></p>
+<p>Für Grundlagen siehe <a href="./http-de.html#/1" target="_blank">Präsentation zu HTTP</a></p>
 </section><section class="slide"><h2>HTTP API Entwicklung</h2>
 <p>Libraries für die API Entwicklung in Python:</p>
 <ul>
@@ -2856,17 +2863,64 @@ path = <span class="hljs-string">"/home/username/"</span>
 <li><code>POST /delete_completed_todos</code></li>
 </ul>
 <p>Die Todos können in einer einfachen JSON-Datei gespeichert werden - oder auch in einer tatsächlichen Datenbank</p>
+</section></section><section class="slides-section"><section class="slide"><h1>API-Entwicklung mit FastAPI</h1>
+</section><section class="slide"><h2>FastAPI</h2>
+<p><em>FastAPI</em>: Library für API-Entwicklung, die auf Typenannotationen beruht</p>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>grundlegendes Beispiel:</p>
+<pre><code class="hljs language-py"><span class="hljs-comment"># main.py</span>
+<span class="hljs-keyword">from</span> fastapi <span class="hljs-keyword">import</span> FastAPI
+
+app = FastAPI()
+
+<span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">"/"</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">root</span>():</span>
+    <span class="hljs-keyword">return</span> {<span class="hljs-string">"message"</span>: <span class="hljs-string">"Hello World"</span>}
+
+<span class="hljs-meta">@app.get(<span class="hljs-params"><span class="hljs-string">"/double"</span></span>)</span>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">double</span>(<span class="hljs-params">number: <span class="hljs-built_in">int</span></span>):</span>
+    <span class="hljs-keyword">return</span> number * <span class="hljs-number">2</span>
+</code></pre>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>ausführen des Beispiels via:</p>
+<pre><code class="hljs language-bash">uvicorn main:app --reload
+</code></pre>
+</section><section class="slide"><h2>FastAPI</h2>
+<p>Anzeigen der Dokumentation und Testumgebung (Swagger) auf: <em>http://localhost:8000/docs</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>Datenbanken</h1>
 <p>Zu Grundlagen siehe Präsentation <em>Datenbanken und Datenspeicherung</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SQL mit Python</h1>
 </section><section class="slide"><h2>Python-Anbindung von SQL-Datenbanken</h2>
 <p>Database API Specification: Standard, der von verschiedenen Python-Datenbankanbindungen umgesetzt wird; standardisiert in PEP 249</p>
-<p>Anbindungen für:</p>
+</section><section class="slide"><h2>PEP 249 Funktionalität</h2>
+<p>PEP 249 definiert:</p>
 <ul>
-<li>sqlite (Python-Paket <em>sqlite3</em>)</li>
-<li>Postgresql (PIP-Paket <em>psycopg2</em>)</li>
-<li>MySQL / mariadb (PIP-Paket <em>PyMySQL</em></li>
-<li>Oracle (PIP-Paket <em>cx_oracle</em>)</li>
+<li>Connections (Verbindung zu einer Datenbank)
+<ul>
+<li>Transaction (typischerweise eine offene Transaktion für eine Connection)
+<ul>
+<li>commit</li>
+<li>rollback</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Cursors
+<ul>
+<li>Ausführen von Operationen</li>
+<li>Auslesen von Query-Ergebnissen</li>
+</ul>
+</li>
+</ul>
+<p><a href="https://www.python.org/dev/peps/pep-0249" target="_blank">https://www.python.org/dev/peps/pep-0249</a></p>
+</section><section class="slide"><h2>Libraries für SQL-Datenbanken</h2>
+<p>Libraries, die PEP 249 implementieren:</p>
+<ul>
+<li><strong>sqlite3</strong>: für SQLite, ist Teil der Standardlibrary</li>
+<li><strong>psycopg</strong>: für Postgres</li>
+<li><strong>PyMySQL</strong>: für MySQL</li>
+<li><strong>cx_oracle</strong>: für Oracle</li>
+<li><strong>pyodbc</strong>: für viele verschiedene Datenbanken (via ODBC)</li>
 </ul>
 </section><section class="slide"><h2>SQLite und Python</h2>
 <p>SQLite: Datenbank, die nur eine einzelne Datenbankdatei verwendet</p>
@@ -2878,6 +2932,19 @@ connection = sqlite3.connect(<span class="hljs-string">'contacts.db'</span>)
 
 <span class="hljs-comment"># in-memory database</span>
 connection = sqlite3.connect(<span class="hljs-string">':memory:'</span>)
+</code></pre>
+</section><section class="slide"><h2>PostgreSQL und Python</h2>
+<p>PIP-Paket <em>psycopg</em></p>
+<pre><code class="hljs language-py"><span class="hljs-keyword">import</span> psycopg
+
+connection = psycopg.connect(host=<span class="hljs-string">"localhost"</span>,
+                             user=<span class="hljs-string">"..."</span>,
+                             password=<span class="hljs-string">"..."</span>,
+                             dbname=<span class="hljs-string">"..."</span>)
+</code></pre>
+<p>oder</p>
+<pre><code class="hljs language-py">connection = psycopg.connect(
+  <span class="hljs-string">"postgresql://user:password@localhost/dbname"</span>)
 </code></pre>
 </section><section class="slide"><h2>MySQL und Python</h2>
 <p>PIP-Paket <em>PyMySQL</em></p>
@@ -2907,42 +2974,40 @@ connection = pyodbc.connect(
 </code></pre>
 </section><section class="slide"><h2>Gemeinsames Interface (PEP 249)</h2>
 <pre><code class="hljs language-py">connection = ...
-...
 cursor = connection.cursor()
+
 cursor.execute(<span class="hljs-string">"SELECT ..."</span>)
 print(cursor.fetchall())
 ...
-cursor = connection.cursor()
 cursor.execute(<span class="hljs-string">"INSERT INTO ..."</span>)
 cursor.execute(<span class="hljs-string">"INSERT INTO ..."</span>)
 connection.commit()
 ...
 connection.close()
 </code></pre>
-</section><section class="slide"><h2>PEP 249</h2>
-<p><a href="https://www.python.org/dev/peps/pep-0249">https://www.python.org/dev/peps/pep-0249</a></p>
 </section><section class="slide"><h2>SQL Statements mit Parametern</h2>
 <p>gefährlich:</p>
-<pre><code class="hljs language-py">search_name = input()
+<pre><code class="hljs language-py">search_name = <span class="hljs-built_in">input</span>()
 res = cursor.execute(
   <span class="hljs-string">f"""SELECT tel FROM person WHERE name = '<span class="hljs-subst">{search_name}</span>'"""</span>
 )
 </code></pre>
+<p><a href="https://xkcd.com/327/" target="_blank">https://xkcd.com/327/</a></p>
 </section><section class="slide"><h2>SQL Statements mit Parametern</h2>
 <p>sichere Methode (mit SQL-Escaping):</p>
-<pre><code class="hljs language-py">search_name = input()
+<pre><code class="hljs language-py">search_name = <span class="hljs-built_in">input</span>()
 res = cursor.execute(
   <span class="hljs-string">"""SELECT tel FROM person WHERE name = ?;"""</span>,
   (search_name, )
 )
 </code></pre>
 </section><section class="slide"><h2>SQL Statements mit Parametern</h2>
-<p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
+<p><a href="https://www.python.org/dev/peps/pep-0249/#paramstyle" target="_blank">https://www.python.org/dev/peps/pep-0249/#paramstyle</a></p>
 <p>Die Attribute <code>sqlite3.paramstyle</code>, <code>pymysql.paramstyle</code> etc. geben das Format für Abfragen mit Parametern an</p>
 <ul>
 <li>sqlite3: qmark</li>
 <li>pymysql: pyformat</li>
-<li>psycopg2: pyformat</li>
+<li>psycopg: pyformat</li>
 <li>cx_Oracle: named</li>
 </ul>
 </section><section class="slide"><h2>PEP 249: das cursor Objekt</h2>
@@ -2993,7 +3058,7 @@ res = cursor.execute(
 <p>Ein <em>Adapter</em> ist eine Funktion, die ein Python Objekt in einen SQL Wert umwandelt.</p>
 <p>Ein <em>Converter</em> ist eine Funktion, dien einen SQL Wert in ein Python Objekt umwandelt.</p>
 <p>Siehe:</p>
-<p><a href="https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases">https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases</a></p>
+<p><a href="https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases" target="_blank">https://docs.python.org/3/library/sqlite3.html#using-adapters-to-store-additional-python-types-in-sqlite-databases</a></p>
 </section><section class="slide"><h2>Adapter und Converter</h2>
 <p>Übungen:</p>
 <ul>
@@ -3007,8 +3072,6 @@ requirements: classes
 <p>SQLAlchemy = Object Relational Mapper</p>
 <p>Objektorientierter Zugriff auf beliebige SQL-Datenbanken</p>
 <p>Alternative: Django ORM</p>
-</section><section class="slide"><h2>SQLAlchemy</h2>
-<p>Pip-Paket <em>sqlalchemy</em></p>
 </section><section class="slide"><h2>Verbinden mit SQLite-Datenbank</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># db_interface.py</span>
 <span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> create_engine
@@ -3019,16 +3082,16 @@ engine.connect()
 </code></pre>
 </section><section class="slide"><h2>Tabellen definieren</h2>
 <pre><code class="hljs language-py"><span class="hljs-comment"># schema.py</span>
-<span class="hljs-keyword">from</span> sqlalchemy.ext.declarative <span class="hljs-keyword">import</span> declarative_base
-<span class="hljs-keyword">from</span> sqlalchemy <span class="hljs-keyword">import</span> Column, Integer, String
+<span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> mapped_column, Mapped, DeclarativeBase
 
-Base = declarative_base()
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span>(<span class="hljs-params">DeclarativeBase</span>):</span>
+    <span class="hljs-keyword">pass</span>
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span><span class="hljs-params">(Base)</span>:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span>(<span class="hljs-params">Base</span>):</span>
     __tablename__ = <span class="hljs-string">"artist"</span>
-    id = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
-    name = Column(String(<span class="hljs-number">30</span>))
-    country = Column(String(<span class="hljs-number">20</span>))
+    <span class="hljs-built_in">id</span>: Mapped[<span class="hljs-built_in">int</span>] = mapped_column(primary_key=<span class="hljs-literal">True</span>)
+    name: Mapped[<span class="hljs-built_in">str</span>] = mapped_column()
+    country: Mapped[<span class="hljs-built_in">str</span>] = mapped_column()
 </code></pre>
 <pre><code class="hljs language-py"><span class="hljs-comment"># db_interface.py</span>
 Base.metadata.create_all(engine)
@@ -3074,7 +3137,7 @@ session.add(beatles)
 <pre><code class="hljs language-sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">name</span>, country <span class="hljs-keyword">FROM</span> artist <span class="hljs-keyword">WHERE</span> artist.name=<span class="hljs-string">'The Beatles'</span>
 </code></pre>
 <p>wird zu:</p>
-<pre><code class="hljs language-py">session.query(Artist).filter(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()
+<pre><code class="hljs language-py">session.query(Artist).<span class="hljs-built_in">filter</span>(Artist.name==<span class="hljs-string">"The Beatles"</span>).one()
 </code></pre>
 </section><section class="slide"><h2>Sprechende Ausgabe von Einträgen</h2>
 <p>aktuell:</p>
@@ -3090,7 +3153,7 @@ session.add(beatles)
 <span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;
 </code></pre>
 <p>wird zu</p>
-<pre><code class="hljs language-py">entry = session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).one()
+<pre><code class="hljs language-py">entry = session.query(Song).<span class="hljs-built_in">filter</span>(Song.title==<span class="hljs-string">"Help!"</span>).one()
 entry.title = <span class="hljs-string">"Help"</span>
 </code></pre>
 </section><section class="slide"><h2>Delete</h2>
@@ -3099,31 +3162,31 @@ entry.title = <span class="hljs-string">"Help"</span>
 <span class="hljs-keyword">WHERE</span> title = <span class="hljs-string">'Help!'</span>;
 </code></pre>
 <p>wird zu</p>
-<pre><code class="hljs language-py">session.query(Song).filter(Song.title==<span class="hljs-string">"Help!"</span>).delete()
+<pre><code class="hljs language-py">session.query(Song).<span class="hljs-built_in">filter</span>(Song.title==<span class="hljs-string">"Help!"</span>).delete()
 </code></pre>
 </section><section class="slide"><h2>Definition eines Fremdschlüssels</h2>
-<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
+<pre><code class="hljs language-py"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span>(<span class="hljs-params">Base</span>):</span>
     __tablename__ = <span class="hljs-string">"song"</span>
-    id = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
+    <span class="hljs-built_in">id</span> = Column(Integer, primary_key=<span class="hljs-literal">True</span>)
     title = Column(String(<span class="hljs-number">30</span>))
-    artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
+    artist_id = mapped_column(ForeignKey(<span class="hljs-string">"artist.id"</span>))
 </code></pre>
 </section><section class="slide"><h2>Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">from</span> sqlalchemy.orm <span class="hljs-keyword">import</span> relationship
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span><span class="hljs-params">(Base)</span>:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Artist</span>(<span class="hljs-params">Base</span>):</span>
     ...
-    songs = relationship(<span class="hljs-string">"Song"</span>)
+    songs: Mapped[Song] = relationship(<span class="hljs-string">"Song"</span>, back_populates=<span class="hljs-string">"artist"</span>)
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span><span class="hljs-params">(Base)</span>:</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Song</span>(<span class="hljs-params">Base</span>):</span>
     ...
-    artist_id = Column(Integer, ForeignKey(<span class="hljs-string">"artist.id"</span>))
+    artist_id = mapped_column(ForeignKey(<span class="hljs-string">"artist.id"</span>))
 
-    artist = relationship(<span class="hljs-string">"Artist"</span>)
+    artist: Mapped[Artist] = relationship(<span class="hljs-string">"Artist"</span>, back_populates=<span class="hljs-string">"song"</span>)
 </code></pre>
 </section><section class="slide"><h2>Einfaches Abfragen einer verknüpften Tabelle</h2>
 <pre><code class="hljs language-py">yesterday = Song(title=<span class="hljs-string">"Yesterday"</span>, artist=beatles)
-help = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.id)
+<span class="hljs-built_in">help</span> = Song(title=<span class="hljs-string">"Help!"</span>, artist_id=beatles.<span class="hljs-built_in">id</span>)
 session.add(...)
 
 print(yesterday.artist)
@@ -3199,9 +3262,9 @@ a1.coordinate <span class="hljs-comment"># "A1"</span>
 <table><thead><tr><th>product</th><th>price</th><th>stock</th></tr></thead><tbody><tr><td>apple</td><td>1.00</td><td>10</td></tr><tr><td>banana</td><td>0.70</td><td>20</td></tr><tr><td>pear</td><td>0.80</td><td>20</td></tr></tbody></table>
 </section><section class="slide"><h2>Resourcen</h2>
 <ul>
-<li><a href="https://openpyxl.readthedocs.io/en/stable/usage.html">openpyxl documentation - Simple usage</a></li>
-<li><a href="https://openpyxl.readthedocs.io/en/stable/#key-classes">openpyxl documentation - Key Classes</a></li>
-<li><a href="http://automatetheboringstuff.com/chapter12/">Automate the Boring Stuff with Python - Chapter 12</a></li>
+<li><a href="https://openpyxl.readthedocs.io/en/stable/usage.html" target="_blank">openpyxl documentation - Simple usage</a></li>
+<li><a href="https://openpyxl.readthedocs.io/en/stable/#key-classes" target="_blank">openpyxl documentation - Key Classes</a></li>
+<li><a href="http://automatetheboringstuff.com/chapter12/" target="_blank">Automate the Boring Stuff with Python - Chapter 12</a></li>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>GUI (Graphical User Interface)</h1>
 </section><section class="slide"><h2>GUI-Libraries für Python</h2>
@@ -3227,7 +3290,7 @@ a1.coordinate <span class="hljs-comment"># "A1"</span>
 </ul>
 </section></section><section class="slides-section"><section class="slide"><h1>Tkinter</h1>
 </section><section class="slide"><h2>Tkinter</h2>
-<p><a href="https://tkdocs.com/">https://tkdocs.com/</a></p>
+<p><a href="https://tkdocs.com/" target="_blank">https://tkdocs.com/</a></p>
 </section><section class="slide"><h2>Tkinter - Ein Fenster anzeigen</h2>
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
 
@@ -3257,7 +3320,7 @@ hello_label.config(text=<span class="hljs-string">"Hi!"</span>)
 message_label = tk.Label(master=window, text=<span class="hljs-string">""</span>)
 message_label.pack()
 
-<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_message</span><span class="hljs-params">()</span>:</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">display_message</span>():</span>
     message_label.config(text=<span class="hljs-string">"Hello!"</span>)
 
 hello_button = tk.Button(master=window,
@@ -3273,22 +3336,22 @@ hello_button.pack()
 <pre><code class="hljs language-py"><span class="hljs-keyword">import</span> tkinter <span class="hljs-keyword">as</span> tk
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">CounterApp</span>:</span>
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self</span>):</span>
         self.count = <span class="hljs-number">0</span>
 
         self.window = tk.Tk()
         self.count_btn = tk.Button(
             master=self.window,
-            text=str(self.count),
+            text=<span class="hljs-built_in">str</span>(self.count),
             command=self.increment_count
         )
         self.count_btn.pack()
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment_count</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">increment_count</span>(<span class="hljs-params">self</span>):</span>
         self.count += <span class="hljs-number">1</span>
-        self.count_btn.config(text=str(self.count))
+        self.count_btn.config(text=<span class="hljs-built_in">str</span>(self.count))
 
-    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span><span class="hljs-params">(self)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">run</span>(<span class="hljs-params">self</span>):</span>
         self.window.mainloop()
 
 counter = CounterApp()
@@ -3343,7 +3406,7 @@ label_b.grid(column=<span class="hljs-number">0</span>, row=<span class="hljs-nu
 <p>Resultat: <em>dist/app.exe</em></p>
 </section></section><section class="slides-section"><section class="slide"><h1>SMTP / IMAP</h1>
 </section><section class="slide"><h2>SMTP / IMAP</h2>
-<p><a href="https://automatetheboringstuff.com/chapter16/">https://automatetheboringstuff.com/chapter16/</a></p>
+<p><a href="https://automatetheboringstuff.com/chapter16/" target="_blank">https://automatetheboringstuff.com/chapter16/</a></p>
 <p>(für Fehler und Korrekturen siehe nächste Folie)</p>
 <p>zur verdeckten Passworteingabe: Modul "getpass"</p>
 </section><section class="slide"><h2>SMTP / IMAP</h2>

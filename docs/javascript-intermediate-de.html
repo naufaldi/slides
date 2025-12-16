@@ -2061,6 +2061,105 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
   <body>
     <div class="reveal">
       <div class="slides slides"><section class="slides-section"><section class="slide"><h1>JavaScript Intermediate</h1>
+</section></section><section class="slides-section"><section class="slide"><h1>Tagged Template strings</h1>
+</section><section class="slide"><h2>Tagged Template Strings</h2>
+<p><strong>Tagged</strong> Template Strings ermöglichen zusätzliche Verarbeitung, wenn Werte eingebunden werden</p>
+<p>Beispiele für Verwendungszwecke:</p>
+<ul>
+<li>"Escaping" von Werten aus unsicheren Quellen</li>
+<li>Anpasen der Einrückung</li>
+<li>Einbinden von Stilen in React</li>
+<li>...</li>
+</ul>
+</section><section class="slide"><h2>Tagged Template Strings</h2>
+<p>Beispiel: "Escaping" von HTML:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { safeHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'common-tags'</span>;
+
+<span class="hljs-keyword">const</span> message = <span class="hljs-string">'I &#x3C;3 U'</span>;
+
+<span class="hljs-keyword">const</span> post = safeHtml<span class="hljs-string">`
+  &#x3C;div><span class="hljs-subst">${message}</span>&#x3C;/div>
+`</span>;
+</code></pre>
+<p>Ergebnis:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>I <span class="hljs-symbol">&#x26;lt;</span>3 U<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+</code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Errors</h1>
+</section><section class="slide"><h2>Errors</h2>
+<p>JavaScript versucht oft, keine Fehler zu werfen, sondern Resultate zu liefern (auch wennd diese keinen Sinn machen)</p>
+<ul>
+<li><code>1 + "1"</code> → <code>"11"</code></li>
+<li><code>parseInt("foo")</code> → <code>NaN</code></li>
+<li><code>{} + []</code> → <code>0</code></li>
+<li><code>Math.sqrttt</code> → <code>undefined</code></li>
+</ul>
+</section><section class="slide"><h2>Arten von Fehlern</h2>
+<ul>
+<li>SyntaxError</li>
+<li>ReferenceError</li>
+<li>TypeError</li>
+<li>...</li>
+</ul>
+<p>Übung: versuche, diese Arten von Fehlern auszulösen</p>
+</section><section class="slide"><h2>Beispiele: ReferenceErrors und TypeErrors</h2>
+<pre><code class="hljs language-js"><span class="hljs-built_in">console</span>.log(Mathhh);
+</code></pre>
+<p>→ ReferenceError: <em>Mathhh is not defined</em></p>
+<pre><code class="hljs language-js"><span class="hljs-built_in">Math</span>.sqrttt(<span class="hljs-number">2</span>);
+</code></pre>
+<p>→ TypeError: <em>Math.sqrttt is not a function</em></p>
+<pre><code class="hljs language-js">emptyArray[<span class="hljs-number">0</span>].toUpperCase();
+</code></pre>
+<p>→ TypeError: <em>Cannot read properties of undefined</em></p>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>mögliche Fehlerquellen:</p>
+<ul>
+<li>Fehler des Programmierers</li>
+<li>Ungültige Eingaben / Werte → können abgefangen und behandelt werden</li>
+</ul>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Beispiel: Versuch, ungültiges JSON zu parsen</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// invalid JSON string</span>
+<span class="hljs-keyword">let</span> preferencesString = <span class="hljs-string">'{ theme: dark }'</span>;
+<span class="hljs-keyword">let</span> preferences;
+<span class="hljs-keyword">try</span> {
+  preferences = <span class="hljs-built_in">JSON</span>.parse(preferencesString);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-comment">// error while loading preferences - use default values</span>
+  preferences = { <span class="hljs-attr">theme</span>: <span class="hljs-string">'light'</span> };
+}
+</code></pre>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Beispiel: Fehler in node.js</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">try</span> {
+  fs.writeFileSync(<span class="hljs-string">'foo.txt'</span>, <span class="hljs-string">'foo'</span>);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'could not write to file'</span>);
+}
+</code></pre>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Zugriff auf das Fehler-Objekt:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">try</span> {
+  <span class="hljs-comment">// ...</span>
+} <span class="hljs-keyword">catch</span> (error) {
+  <span class="hljs-built_in">console</span>.log(error.name); <span class="hljs-comment">// SyntaxError</span>
+  <span class="hljs-built_in">console</span>.log(error.message); <span class="hljs-comment">// JSON.parse: expected ...</span>
+}
+</code></pre>
+</section><section class="slide"><h2>Fehler abfangen</h2>
+<p>Verwendung des <em>finally</em>-Blocks, der immer ausgeführt wird:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">try</span> {
+  <span class="hljs-keyword">let</span> file = fs.openSync(<span class="hljs-string">'foo.txt'</span>);
+  fs.writeSync(file, <span class="hljs-string">'foo\n'</span>);
+  fs.writeSync(file, <span class="hljs-string">'bar\n'</span>);
+} <span class="hljs-keyword">catch</span> {
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'error while writing - aborting'</span>);
+  <span class="hljs-keyword">return</span>;
+} <span class="hljs-keyword">finally</span> {
+  <span class="hljs-comment">// "clean up"</span>
+  fs.closeSync(<span class="hljs-string">'foo.txt'</span>);
+}
+</code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>map, filter, reduce</h1>
 <!-- note: this is partially duplicated in javascript-basics-for-react -->
 <h3>Array-Methoden für die funktionale Programmierung</h3>
@@ -2095,10 +2194,10 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>reduce - Beispiel</h2>
 <pre><code class="hljs language-js"><span class="hljs-keyword">const</span> initialBalance = <span class="hljs-number">300</span>;
 <span class="hljs-keyword">const</span> transactions = [
-  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-50</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
+  { <span class="hljs-attr">amount</span>: -<span class="hljs-number">50</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'groceries'</span> },
   { <span class="hljs-attr">amount</span>: +<span class="hljs-number">1000</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'salary'</span> },
-  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-10</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'dinner'</span> },
-  { <span class="hljs-attr">amount</span>: <span class="hljs-number">-100</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'electricity'</span> },
+  { <span class="hljs-attr">amount</span>: -<span class="hljs-number">10</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'dinner'</span> },
+  { <span class="hljs-attr">amount</span>: -<span class="hljs-number">100</span>, <span class="hljs-attr">title</span>: <span class="hljs-string">'electricity'</span> },
 ];
 
 <span class="hljs-keyword">const</span> reducer = <span class="hljs-function">(<span class="hljs-params">aggregator, transaction</span>) =></span>
@@ -2111,6 +2210,20 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 
 <span class="hljs-comment">// 300 -> 250 -> 1250 -> 1240 -> 1140</span>
 </code></pre>
+</section></section><section class="slides-section"><section class="slide"><h1>Optional chaining</h1>
+</section><section class="slide"><h2>Optional Chaining</h2>
+<p>Beispiel für <em>optional chaining</em>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user?.nickname;
+</code></pre>
+<p>wenn <code>user</code> definiert ist, lies dessen <code>.nickname</code> Property, andernfalls verwende <code>undefined</code></p>
+<p>"konventionelle" Langform:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> userNickname = user ? user.nickname : <span class="hljs-literal">undefined</span>;
+</code></pre>
+</section><section class="slide"><h2>Optional Chaining</h2>
+<p><em>Optional chaining</em> mit Funktionsaufrufen:</p>
+<pre><code class="hljs language-js">props.onClick?.();
+</code></pre>
+<p>wenn <code>props.onClick</code> definiert ist, wird es aufgerufen, andernfalls wird der Ausdruck zu <code>undefined</code> ausgewertet</p>
 </section></section><section class="slides-section"><section class="slide"><h1>Objektorientierte Programmierung (alt)</h1>
 </section><section class="slide"><h2>Prototypen und Konstruktorfunktionen</h2>
 <p>OOP in JavaScript basiert nicht auf Klassen, sondern auf sogenannten <em>Prototypen</em></p>
@@ -2120,8 +2233,8 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 </section><section class="slide"><h2>Prototypen und Konstruktorfunktionen</h2>
 <p>Bei OOP in JavaScript beginnen wir damit, die Konstruktorfunktion zu schreiben, die ein Objekt initialisiert:</p>
 <pre><code class="hljs language-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Car</span>(<span class="hljs-params">brand, model</span>) </span>{
-  <span class="hljs-keyword">this</span>.brand = brand;
-  <span class="hljs-keyword">this</span>.model = model;
+  <span class="hljs-built_in">this</span>.brand = brand;
+  <span class="hljs-built_in">this</span>.model = model;
 }
 </code></pre>
 </section><section class="slide"><h2>Prototypen und Methodendefinition</h2>
@@ -2130,7 +2243,7 @@ Original highlight.js style (c) Ivan Sagalaev <maniac@softwaremaniacs.org>
 };
 
 Car.prototype.getDescription = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.make + <span class="hljs-string">' '</span> + <span class="hljs-keyword">this</span>.model;
+  <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.make + <span class="hljs-string">' '</span> + <span class="hljs-built_in">this</span>.model;
 };
 </code></pre>
 </section><section class="slide"><h2>Verwendung von Objekten</h2>
@@ -2143,12 +2256,12 @@ myCar.accelerate();
 </section></section><section class="slides-section"><section class="slide"><h1>Objektorientierte Programmierung (ab ES2015)</h1>
 </section><section class="slide"><h2>OOP (neu)</h2>
 <pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Car</span> </span>{
-  <span class="hljs-keyword">constructor</span>(brand, model) {
-    <span class="hljs-keyword">this</span>.brand = brand;
-    <span class="hljs-keyword">this</span>.model = model;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params">brand, model</span>)</span> {
+    <span class="hljs-built_in">this</span>.brand = brand;
+    <span class="hljs-built_in">this</span>.model = model;
   }
 
-  accelerate() {
+  <span class="hljs-function"><span class="hljs-title">accelerate</span>(<span class="hljs-params"></span>)</span> {
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'wroom!'</span>);
   }
 }
@@ -2156,7 +2269,7 @@ myCar.accelerate();
 </section><section class="slide"><h2>OOP (neu)</h2>
 <p>Vererbung</p>
 <pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">LuxuryCar</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Car</span> </span>{
-  openRoof() {}
+  <span class="hljs-function"><span class="hljs-title">openRoof</span>(<span class="hljs-params"></span>)</span> {}
 }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>"this" und seine Quirks in JavaScript</h1>
@@ -2167,37 +2280,37 @@ myCar.accelerate();
 <li>jeder Funktionsaufruf setzt <em>this</em> neu (nicht nur Methodenaufrufe)</li>
 <li><em>this</em> wird nur richtig gesetzt, wenn die Methode mit der Syntax <code>object.method()</code> aufgerufen wird</li>
 </ul>
-</section><section class="slide"><h2>Problem: <em>this</em> in anonymen Funktionen</h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
-    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
-      <span class="hljs-comment">//this wird hier überschrieben (auf window)</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+</section><section class="slide"><h2>Problem: "this" in anonymen Funktionen</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">// this ist set correctly here</span>
+    <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>{
+      <span class="hljs-comment">// this will be overwritten here (to 'window')</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
   }
 }
 </code></pre>
-</section><section class="slide"><h2>Lösung: <em>Pfeilfunktionen</em></h2>
-<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">myComponent</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-comment">// this ist hier richtig gesetzt</span>
-    <span class="hljs-keyword">this</span>.foo = <span class="hljs-literal">true</span>;
-    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-      <span class="hljs-comment">// this wird hier *nicht* überschrieben</span>
-      <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.foo);
+</section><section class="slide"><h2>Lösung: Pfeilfunktionen</h2>
+<pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-comment">// this ist set correctly here</span>
+    <span class="hljs-built_in">this</span>.foo = <span class="hljs-literal">true</span>;
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =></span> {
+      <span class="hljs-comment">// this will *not* be overwritten here</span>
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.foo);
     }, <span class="hljs-number">1000</span>);
   }
 }
 </code></pre>
 </section><section class="slide"><h2>Problem: Methodenaufrufe ohne Methodensyntax</h2>
 <pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.message = <span class="hljs-string">'hello'</span>;
   }
-  greet() {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
+  <span class="hljs-function"><span class="hljs-title">greet</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
   }
 }
 <span class="hljs-keyword">const</span> foo = <span class="hljs-keyword">new</span> Foo();
@@ -2208,11 +2321,11 @@ greet(); <span class="hljs-comment">// not ok ("this" is undefined)</span>
 </section><section class="slide"><h2>Lösung: Pfeil-Methoden</h2>
 <p>Seit ES2018 einsetzbar:</p>
 <pre><code class="hljs language-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Foo</span> </span>{
-  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">this</span>.message = <span class="hljs-string">'hello'</span>;
+  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.message = <span class="hljs-string">'hello'</span>;
   }
-  greet = <span class="hljs-function"><span class="hljs-params">()</span> =></span> {
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">this</span>.message);
+  greet = <span class="hljs-function">() =></span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">this</span>.message);
   };
 }
 </code></pre>
@@ -2223,8 +2336,8 @@ foo.greet(); <span class="hljs-comment">// ok</span>
 greet(); <span class="hljs-comment">// ok</span>
 </code></pre>
 <p>Üblicherweise Zuweisung im Konstruktor:</p>
-<pre><code class="hljs language-js">  <span class="hljs-keyword">constructor</span>() {
-    <span class="hljs-keyword">this</span>.greet = <span class="hljs-keyword">this</span>.greet.bind(<span class="hljs-keyword">this</span>);
+<pre><code class="hljs language-js">  <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span> {
+    <span class="hljs-built_in">this</span>.greet = <span class="hljs-built_in">this</span>.greet.bind(<span class="hljs-built_in">this</span>);
   }
 </code></pre>
 </section></section><section class="slides-section"><section class="slide"><h1>Libraries</h1>

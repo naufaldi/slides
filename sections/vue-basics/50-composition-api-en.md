@@ -16,10 +16,13 @@ options API:
 
 ```js
 export default {
-  data: () => ({
-    todos: [],
-    newTitle: '',
-  }),
+  name: 'TodoApp',
+  data() {
+    return {
+      todos: [],
+      newTitle: '',
+    };
+  },
   methods: {
     /*...*/
   },
@@ -36,12 +39,13 @@ composition API:
 ```js
 import { ref, reactive, computed } from 'vue';
 export default {
+  name: 'TodoApp',
   setup() {
     const todos = reactive([]);
     const newTitle = ref('');
-    const addTodo = () => {
+    function addTodo() {
       // ...
-    };
+    }
     const numActive = computed(
       () => todos.filter((t) => !t.completed).length
     );
@@ -49,6 +53,40 @@ export default {
   },
 };
 ```
+
+## Composition API vs options API
+
+possible restructuring of code:
+
+```js
+function useTodos() {
+  // manages todos
+}
+
+export default {
+  name: 'TodoApp',
+  setup() {
+    const newTitle = ref('');
+    const { todos, addTodo, numActive } = useTodos();
+    return { todos, addTodo, numActive, newTitle };
+  },
+};
+```
+
+## Composition API
+
+_VueUse_: collection of pre-defined Vue composition functions:
+
+<https://github.com/vueuse/vueuse>
+
+examples:
+
+- _useFetch_
+- _useGeolocation_
+- _useMediaQuery_
+- _useNow_
+- _useOnline_
+- ...
 
 ## State in the composition API
 
@@ -101,21 +139,26 @@ reading / writing from the template:
 ```js
 import { ref, reactive } from 'vue';
 export default {
+  name: 'TodoApp',
   setup() {
     const newTitle = ref('');
     const todos = reactive([
       { id: 1, title: 'groceries', completed: false },
       { id: 2, title: 'taxes', completed: true },
     ]);
-    const addTodo = () => {
+    function onSubmit() {
+      addTodo(newTitle.value);
+      newTitle.value = '';
+    }
+    function addTodo(title) {
+      const maxId = Math.max(0, ...todos.map((t) => t.id));
       todos.push({
-        id: Math.max(0, ...todos.map((t) => t.id)) + 1,
+        id: newId,
         title: newTitle.value,
         completed: false,
       });
-      newTitle.value = '';
-    };
-    return { newTitle, todos, addTodo };
+    }
+    return { newTitle, todos, onSubmit };
   },
 };
 ```
@@ -125,5 +168,5 @@ export default {
 Create a slideshow component / application that displays images like this:
 
 ```
-https://picsum.photos/200?image=0
+https://picsum.photos/300/200?image=0
 ```

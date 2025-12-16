@@ -6,6 +6,16 @@
 
 Fokus der Tests liegt auf Aspekten, die für den Endnutzer relevant sind (nicht so sehr auf der genauen DOM-Struktur oder Implementierungsdetails)
 
+## React-Testing-Library
+
+Ausführen von Tests in einer _create-react-app_-basierten Anwendung:
+
+```bash
+npm run test
+```
+
+Bemerkung: falls langsam, versuche `"test": "react-scripts test --maxWorkers=1"` in _package.json_
+
 ## Beispiel
 
 ```js
@@ -36,6 +46,7 @@ Möglichkeiten für den _accessible name_:
 - Alt-Text eines Bildes
 - Titel eines Links / Bildes
 - Label-Text eines Inputs
+- explizites `aria-label`-Attribut
 
 ## Elemente abfragen
 
@@ -53,7 +64,7 @@ Beispiele für _Role_ (implizit oder explizit gesetzt):
 - _menuitem_
 - _presentation_
 - _textbox_
-- ... (see [role definitions from W3C](https://www.w3.org/TR/2014/REC-wai-aria-20140320/roles#role_definitions))
+- ... (siehe [role Definitionen von W3C](https://www.w3.org/TR/wai-aria-1.2/#role_definitions))
 
 ## Unterelemente abfragen
 
@@ -85,10 +96,10 @@ erweiterte Assertions (bei _create-react-app_ vorkonfiguriert):
 import userEvent from '@testing-library/user-event';
 
 userEvent.type(
-  screen.getByRole('input', { name: /title/i }),
+  screen.getByRole('textbox', { name: /title/i }),
   'write tests'
 );
 userEvent.click(
-  screen.getByRole('button', { name: /add todo/i })
+  screen.getByRole('button', { name: /add/i })
 );
 ```

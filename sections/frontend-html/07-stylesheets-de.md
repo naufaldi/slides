@@ -13,7 +13,7 @@ Einbindung meist im head, z.B.:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/picnic"
+  href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css"
 />
 ```
 
@@ -27,14 +27,18 @@ Resets: Stylesheets, die grundlegende Stile über verschiedene Browser hinweg ve
 
 CDN: Content Delivery Network - Services, die CSS- und JS-Libraries hosten
 
+## Semantische CSS-Starter
+
+- [water.css](https://watercss.kognise.dev/)
+- [new.css](https://newcss.net)
+- [simple.css](https://simplecss.org/)
+
 ## CSS Libraries
 
 CSS Libraries:
 
-- _Picnic CSS_: einfache CSS-Library, ohne JavaScript - [website](https://picnicss.com/), [CDN](https://cdn.jsdelivr.net/npm/picnic)
 - _Bootstrap_: weit verbreitete CSS-Library mit vielen verfügbaren Themes - [website](https://getbootstrap.com/), [CDN für CSS](https://cdn.jsdelivr.net/npm/bootstrap/dist/css/bootstrap.css), [CDN für JS](https://cdn.jsdelivr.net/npm/bootstrap/dist/js/bootstrap.js)
-- _Semantic UI_ - [website](https://semantic-ui.com), [CDN für CSS](https://cdn.jsdelivr.net/npm/semantic-ui/dist/semantic.css), [CDN für JS](https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.js)
-- _Foundation_ - [website](https://get.foundation/sites/docs/), [CDN für CSS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/css/foundation.css), [CDN für JS](https://cdn.jsdelivr.net/npm/foundation-sites/dist/js/foundation.js)
+- _Tailwind_ - [website](https://tailwindcss.com/), [CDN](https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css)
 
 <!--
 
